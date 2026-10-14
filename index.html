@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HashNova — Cloud Mining Platform (Demo Prototype)</title>
+  <meta name="description" content="HashNova cloud mining demo prototype. All balances and mining are simulated." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <!-- Persistent Demo Banner -->
+  <div class="demo-banner">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg>
+    <span><strong>DEMO PROTOTYPE</strong> — All balances, hashrates, contracts &amp; transactions are simulated. No real cryptocurrency or blockchain operations.</span>
+  </div>
+
+  <!-- ========== AUTH / LANDING SHELL ========== -->
+  <div id="auth-shell" class="hidden">
+    <!-- Landing -->
+    <div id="page-landing" class="page">
+      <div class="landing-hero">
+        <div class="logo" style="justify-content:center;margin-bottom:32px;font-size:28px">
+          <div class="logo-icon">H</div>
+          Hash<span>Nova</span>
+        </div>
+        <h1>Cloud Mining,<br/>Elevated.</h1>
+        <p>Institutional-grade SHA-256 hashrate on demand. Activate contracts in seconds. Track performance in real time. This is a fully interactive UI prototype.</p>
+        <div class="flex gap-12" style="justify-content:center;flex-wrap:wrap">
+          <button class="btn btn-primary btn-lg" onclick="navigate('register')">Start Mining Demo</button>
+          <button class="btn btn-outline btn-lg" onclick="navigate('login')">Sign In</button>
+        </div>
+        <div class="hero-stats">
+          <div>
+            <div class="hero-stat-value">2.4 EH/s</div>
+            <div class="hero-stat-label">Network Capacity (demo)</div>
+          </div>
+          <div>
+            <div class="hero-stat-value">48k+</div>
+            <div class="hero-stat-label">Active Contracts</div>
+          </div>
+          <div>
+            <div class="hero-stat-value">99.7%</div>
+            <div class="hero-stat-label">Uptime SLA</div>
+          </div>
+        </div>
+      </div>
+      <div class="content" style="max-width:1100px">
+        <div class="grid grid-3 mb-24">
+          <div class="card card-glow text-center">
+            <div style="font-size:28px;margin-bottom:8px">⚡</div>
+            <h3 style="margin-bottom:8px">Instant Activation</h3>
+            <p class="text-secondary" style="font-size:14px">Purchase hashrate and start earning simulated rewards within minutes. No hardware, no electricity bills.</p>
+          </div>
+          <div class="card card-glow text-center">
+            <div style="font-size:28px;margin-bottom:8px">📊</div>
+            <h3 style="margin-bottom:8px">Transparent Metrics</h3>
+            <p class="text-secondary" style="font-size:14px">Live hashrate, efficiency, and payout history. Every number in this prototype is clearly marked as demo data.</p>
+          </div>
+          <div class="card card-glow text-center">
+            <div style="font-size:28px;margin-bottom:8px">🔒</div>
+            <h3 style="margin-bottom:8px">Secure by Design</h3>
+            <p class="text-secondary" style="font-size:14px">Multi-sig wallets, cold storage simulation, and clear separation of demo funds from any real chain activity.</p>
+          </div>
+        </div>
+        <p class="text-center text-muted" style="font-size:13px;padding-bottom:40px">
+          HashNova Demo Prototype · Not a real mining service · Built for UI/UX evaluation
+        </p>
+      </div>
+    </div>
+
+    <!-- Login -->
+    <div id="page-login" class="page">
+      <div class="auth-page">
+        <div class="auth-card">
+          <div class="logo" style="justify-content:center;margin-bottom:24px">
+            <div class="logo-icon">H</div>
+            Hash<span>Nova</span>
+          </div>
+          <h2>Welcome back</h2>
+          <p class="subtitle">Sign in to your demo account</p>
+          <form onsubmit="doLogin(event)">
+            <div class="form-group">
+              <label class="form-label">Email</label>
+              <input class="form-input" type="email" value="alex.demo@hashnova.io" placeholder="you@example.com" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Password</label>
+              <input class="form-input" type="password" value="demo1234" placeholder="••••••••" required />
+            </div>
+            <button type="submit" class="btn btn-primary w-full btn-lg">Sign In to Demo</button>
+          </form>
+          <p class="text-center mt-16 text-secondary" style="font-size:13px">
+            No account? <a href="#" onclick="navigate('register');return false">Create demo account</a>
+          </p>
+          <p class="text-center mt-8">
+            <a href="#" onclick="navigate('landing');return false" class="text-muted" style="font-size:12px">← Back to home</a>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Register -->
+    <div id="page-register" class="page">
+      <div class="auth-page">
+        <div class="auth-card">
+          <div class="logo" style="justify-content:center;margin-bottom:24px">
+            <div class="logo-icon">H</div>
+            Hash<span>Nova</span>
+          </div>
+          <h2>Create account</h2>
+          <p class="subtitle">Start your cloud mining demo</p>
+          <form onsubmit="doRegister(event)">
+            <div class="form-group">
+              <label class="form-label">Full name</label>
+              <input class="form-input" type="text" placeholder="Alex Rivera" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email</label>
+              <input class="form-input" type="email" placeholder="you@example.com" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Password</label>
+              <input class="form-input" type="password" placeholder="Min. 8 characters" required />
+            </div>
+            <div class="demo-notice">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+              <span>This creates a local demo session only. No real account or funds are involved.</span>
+            </div>
+            <button type="submit" class="btn btn-primary w-full btn-lg">Create Demo Account</button>
+          </form>
+          <p class="text-center mt-16 text-secondary" style="font-size:13px">
+            Already have one? <a href="#" onclick="navigate('login');return false">Sign in</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== MAIN APP SHELL ========== -->
+  <div class="app-shell">
+    <div class="sidebar-overlay" onclick="closeSidebar()"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="logo">
+          <div class="logo-icon">H</div>
+          Hash<span>Nova</span>
+        </div>
+      </div>
+      <nav class="nav-section">
+        <div class="nav-label">Main</div>
+        <button class="nav-item active" data-page="dashboard">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+          Dashboard
+        </button>
+        <button class="nav-item" data-page="plans">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          Mining Plans
+        </button>
+        <button class="nav-item" data-page="miners">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 12h.01M10 12h.01M14 12h.01"/></svg>
+          My Contracts
+          <span class="badge">4</span>
+        </button>
+        <button class="nav-item" data-page="wallet">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12V7H5a2 2 0 010-4h14v4"/><path d="M3 5v14a2 2 0 002 2h16v-5"/><path d="M18 12a2 2 0 100 4h4v-4h-4z"/></svg>
+          Wallet
+        </button>
+        <div class="nav-label" style="margin-top:12px">Growth</div>
+        <button class="nav-item" data-page="referrals">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+          Referrals
+        </button>
+        <div class="nav-label" style="margin-top:12px">Account</div>
+        <button class="nav-item" data-page="profile">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Profile
+        </button>
+        <button class="nav-item" data-page="support">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3M12 17h.01"/></svg>
+          Support
+        </button>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="user-chip" onclick="navigate('profile')">
+          <div class="avatar">AR</div>
+          <div class="user-info">
+            <div class="name">Alex Rivera</div>
+            <div class="role">Gold Miner · Demo</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <div class="main">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="mobile-menu-btn" onclick="openSidebar()" aria-label="Menu">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+          </button>
+          <h1 class="page-title" id="page-title">Dashboard</h1>
+        </div>
+        <div class="topbar-right">
+          <button class="btn btn-outline btn-sm" onclick="openModal('modal-deposit')">+ Deposit</button>
+          <button class="btn btn-gold btn-sm" onclick="openModal('modal-withdraw')">Withdraw</button>
+          <button class="btn btn-ghost btn-sm" onclick="doLogout()" title="Sign out">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+          </button>
+        </div>
+      </header>
+
+      <div class="content">
+        <!-- ===== DASHBOARD ===== -->
+        <div id="page-dashboard" class="page active">
+          <div class="demo-notice">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+            <span>You are viewing <strong>simulated</strong> balances and live hashrate. Numbers update for demo realism only — no real mining or funds.</span>
+          </div>
+
+          <div class="grid grid-4 mb-24">
+            <div class="stat-card">
+              <div class="stat-label">Available Balance</div>
+              <div class="stat-value text-green" id="stat-balance">$2,847.52</div>
+              <div class="stat-change up">Demo USDT</div>
+            </div>
+            <div class="stat-card gold">
+              <div class="stat-label">Pending Rewards</div>
+              <div class="stat-value text-gold" id="stat-pending">$124.80</div>
+              <div class="stat-change up">Next payout ~4h</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Total Earned</div>
+              <div class="stat-value" id="stat-earned">$15,620.45</div>
+              <div class="stat-change up">Lifetime (demo)</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Active Hashrate</div>
+              <div class="stat-value" style="display:flex;align-items:center;gap:8px">
+                <span class="live-dot"></span>
+                <span id="live-hashrate">842.5 TH/s</span>
+              </div>
+              <div class="stat-change up">Live simulation</div>
+            </div>
+          </div>
+
+          <div class="grid grid-2 mb-24">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">Hashrate Performance (24h)</div>
+                <span class="badge badge-green"><span class="dot"></span> Live</span>
+              </div>
+              <div class="chart-container" id="hashrate-chart"></div>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">Quick Stats</div>
+              </div>
+              <div class="grid grid-2" style="gap:16px">
+                <div>
+                  <div class="text-muted" style="font-size:12px">Active Contracts</div>
+                  <div class="mono" style="font-size:22px;font-weight:700" id="stat-miners">4</div>
+                </div>
+                <div>
+                  <div class="text-muted" style="font-size:12px">Efficiency</div>
+                  <div class="mono" style="font-size:22px;font-weight:700" id="stat-efficiency">98.2%</div>
+                </div>
+                <div>
+                  <div class="text-muted" style="font-size:12px">BTC Balance</div>
+                  <div class="mono" style="font-size:18px;font-weight:600" id="wallet-btc">0.04218</div>
+                </div>
+                <div>
+                  <div class="text-muted" style="font-size:12px">ETH Balance</div>
+                  <div class="mono" style="font-size:18px;font-weight:600" id="wallet-eth">1.284</div>
+                </div>
+              </div>
+              <div class="mt-24">
+                <button class="btn btn-primary w-full" onclick="navigate('plans')">Browse Mining Plans</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">Recent Activity</div>
+              <button class="btn btn-ghost btn-sm" onclick="navigate('wallet')">View all</button>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Type</th>
+                    <th>Amount</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="mono">TX-99281</td>
+                    <td><span class="badge badge-green">mining</span></td>
+                    <td class="mono text-green">+$12.45 USDT</td>
+                    <td class="text-muted">2026-10-14 08:12</td>
+                    <td><span class="badge badge-green">completed</span></td>
+                  </tr>
+                  <tr>
+                    <td class="mono">TX-99270</td>
+                    <td><span class="badge badge-green">mining</span></td>
+                    <td class="mono text-green">+$11.98 USDT</td>
+                    <td class="text-muted">2026-10-13 08:12</td>
+                    <td><span class="badge badge-green">completed</span></td>
+                  </tr>
+                  <tr>
+                    <td class="mono">TX-99255</td>
+                    <td><span class="badge badge-gold">withdraw</span></td>
+                    <td class="mono text-gold">-$500.00 USDT</td>
+                    <td class="text-muted">2026-10-12 14:33</td>
+                    <td><span class="badge badge-green">completed</span></td>
+                  </tr>
+                  <tr>
+                    <td class="mono">TX-99218</td>
+                    <td><span class="badge badge-blue">deposit</span></td>
+                    <td class="mono text-green">+$1,000.00 USDT</td>
+                    <td class="text-muted">2026-10-10 11:05</td>
+                    <td><span class="badge badge-green">completed</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== PLANS ===== -->
+        <div id="page-plans" class="page">
+          <div class="demo-notice">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+            <span>Contract purchases deduct from your <strong>demo balance</strong> only. Estimated daily rewards are illustrative simulations.</span>
+          </div>
+          <div class="flex-between mb-24" style="flex-wrap:wrap;gap:12px">
+            <div>
+              <h2 style="font-size:22px;margin-bottom:4px">Cloud Mining Contracts</h2>
+              <p class="text-secondary" style="font-size:14px">SHA-256 hashrate packages with fixed duration. Activate instantly.</p>
+            </div>
+          </div>
+          <div class="grid grid-4" id="plans-grid">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- ===== MINERS / CONTRACTS ===== -->
+        <div id="page-miners" class="page">
+          <div class="demo-notice">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+            <span>These contracts and earnings are entirely simulated for prototype demonstration.</span>
+          </div>
+          <div class="flex-between mb-24">
+            <div>
+              <h2 style="font-size:22px;margin-bottom:4px">My Mining Contracts</h2>
+              <p class="text-secondary" style="font-size:14px">Active and completed cloud hashrate contracts</p>
+            </div>
+            <button class="btn btn-primary" onclick="navigate('plans')">+ New Contract</button>
+          </div>
+          <div class="grid" style="gap:16px" id="miners-list">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- ===== WALLET ===== -->
+        <div id="page-wallet" class="page">
+          <div class="demo-notice">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+            <span>All deposits, withdrawals and balances are <strong>local demo state</strong>. No real blockchain transactions occur.</span>
+          </div>
+          <div class="grid grid-4 mb-24">
+            <div class="stat-card">
+              <div class="stat-label">Available (USDT)</div>
+              <div class="stat-value text-green" id="wallet-available">$2,847.52</div>
+            </div>
+            <div class="stat-card gold">
+              <div class="stat-label">Pending</div>
+              <div class="stat-value text-gold" id="wallet-pending">$124.80</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">BTC</div>
+              <div class="stat-value" style="font-size:22px">0.04218</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">ETH</div>
+              <div class="stat-value" style="font-size:22px">1.284</div>
+            </div>
+          </div>
+          <div class="flex gap-12 mb-24" style="flex-wrap:wrap">
+            <button class="btn btn-primary" onclick="openModal('modal-deposit')">Deposit Funds</button>
+            <button class="btn btn-gold" onclick="openModal('modal-withdraw')">Withdraw</button>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">Transaction History</div>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Type</th>
+                    <th>Amount</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Note</th>
+                  </tr>
+                </thead>
+                <tbody id="tx-tbody">
+                  <!-- Rendered by JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== REFERRALS ===== -->
+        <div id="page-referrals" class="page">
+          <div class="demo-notice">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+            <span>Referral earnings and invitee list are simulated demo data.</span>
+          </div>
+          <div class="grid grid-3 mb-24">
+            <div class="stat-card">
+              <div class="stat-label">Total Referrals</div>
+              <div class="stat-value" id="ref-total">14</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Active</div>
+              <div class="stat-value text-green" id="ref-active">9</div>
+            </div>
+            <div class="stat-card gold">
+              <div class="stat-label">Referral Earnings</div>
+              <div class="stat-value text-gold" id="ref-earnings">$428.60</div>
+            </div>
+          </div>
+          <div class="card mb-24">
+            <div class="card-title mb-16">Your Referral Code</div>
+            <div class="code-box">
+              <span id="ref-code">HASH-AR7X9K</span>
+              <button class="btn btn-outline btn-sm" onclick="copyReferral()">Copy</button>
+            </div>
+            <p class="form-hint mt-8">Share this code. Demo commissions credit when invited users activate contracts (simulated).</p>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">Referral Activity</div>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>User</th>
+                    <th>Joined</th>
+                    <th>Status</th>
+                    <th>Earned</th>
+                  </tr>
+                </thead>
+                <tbody id="ref-tbody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== PROFILE ===== -->
+        <div id="page-profile" class="page">
+          <div class="demo-notice">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+            <span>Profile data is static demo content. Changes are not persisted beyond this session.</span>
+          </div>
+          <div class="grid grid-2">
+            <div class="card">
+              <div class="card-title mb-16">Account Information</div>
+              <div class="form-group">
+                <label class="form-label">Full Name</label>
+                <input class="form-input" value="Alex Rivera" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Email</label>
+                <input class="form-input" value="alex.demo@hashnova.io" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Tier</label>
+                <input class="form-input" value="Gold Miner" disabled />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Member Since</label>
+                <input class="form-input" value="November 12, 2025" disabled />
+              </div>
+              <button class="btn btn-primary" onclick="showToast('Profile saved (demo only)', 'success')">Save Changes</button>
+            </div>
+            <div class="card">
+              <div class="card-title mb-16">Security</div>
+              <div class="form-group">
+                <label class="form-label">Current Password</label>
+                <input class="form-input" type="password" placeholder="••••••••" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">New Password</label>
+                <input class="form-input" type="password" placeholder="••••••••" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Confirm Password</label>
+                <input class="form-input" type="password" placeholder="••••••••" />
+              </div>
+              <button class="btn btn-outline" onclick="showToast('Password updated (demo)', 'success')">Update Password</button>
+              <hr style="border:none;border-top:1px solid var(--border);margin:24px 0" />
+              <div class="flex-between">
+                <div>
+                  <div style="font-weight:600">Two-Factor Auth</div>
+                  <div class="text-muted" style="font-size:13px">Recommended for production apps</div>
+                </div>
+                <span class="badge badge-gray">Demo off</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== SUPPORT ===== -->
+        <div id="page-support" class="page">
+          <div class="card mb-24">
+            <div class="card-title mb-16">Frequently Asked Questions</div>
+            <div style="display:flex;flex-direction:column;gap:12px">
+              <details style="background:var(--bg-elevated);padding:14px 16px;border-radius:8px;border:1px solid var(--border)">
+                <summary style="cursor:pointer;font-weight:600">Is this a real mining platform?</summary>
+                <p class="text-secondary mt-8" style="font-size:14px">No. HashNova is a UI/UX prototype. All balances, contracts, hashrates and transactions are simulated in the browser. No real cryptocurrency is mined or transferred.</p>
+              </details>
+              <details style="background:var(--bg-elevated);padding:14px 16px;border-radius:8px;border:1px solid var(--border)">
+                <summary style="cursor:pointer;font-weight:600">How do cloud mining contracts work (in production)?</summary>
+                <p class="text-secondary mt-8" style="font-size:14px">In a real product, users purchase a fixed amount of hashrate for a defined period. The provider operates physical miners and distributes proportional rewards. This demo only mimics the interface and flow.</p>
+              </details>
+              <details style="background:var(--bg-elevated);padding:14px 16px;border-radius:8px;border:1px solid var(--border)">
+                <summary style="cursor:pointer;font-weight:600">Can I withdraw real money?</summary>
+                <p class="text-secondary mt-8" style="font-size:14px">No. Withdraw and deposit buttons update local demo state only. No blockchain or payment rails are connected.</p>
+              </details>
+              <details style="background:var(--bg-elevated);padding:14px 16px;border-radius:8px;border:1px solid var(--border)">
+                <summary style="cursor:pointer;font-weight:600">What algorithms are supported?</summary>
+                <p class="text-secondary mt-8" style="font-size:14px">This prototype focuses on SHA-256 (Bitcoin-style) cloud contracts. A production version could add more algorithms.</p>
+              </details>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-title mb-16">Contact Support (Demo)</div>
+            <div class="form-group">
+              <label class="form-label">Subject</label>
+              <input class="form-input" placeholder="How can we help?" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Message</label>
+              <textarea class="form-input" rows="4" placeholder="Describe your question..."></textarea>
+            </div>
+            <button class="btn btn-primary" onclick="showToast('Support ticket submitted (demo — not sent)', 'info')">Send Message</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== MODALS ========== -->
+  <div class="modal-overlay" id="modal-purchase">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title">Confirm Contract Purchase</div>
+        <button class="modal-close" onclick="closeModal('modal-purchase')">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="demo-notice">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+          <span>This is a <strong>simulated</strong> purchase. Demo balance will be reduced; no real payment is processed.</span>
+        </div>
+        <div class="flex-between mb-16">
+          <span class="text-secondary">Plan</span>
+          <strong id="purchase-plan-name">—</strong>
+        </div>
+        <div class="flex-between mb-16">
+          <span class="text-secondary">Hashrate</span>
+          <strong class="text-green" id="purchase-hashrate">—</strong>
+        </div>
+        <div class="flex-between mb-16">
+          <span class="text-secondary">Duration</span>
+          <strong id="purchase-duration">—</strong>
+        </div>
+        <div class="flex-between mb-16">
+          <span class="text-secondary">Est. daily reward</span>
+          <strong class="text-gold" id="purchase-daily">—</strong>
+        </div>
+        <div class="flex-between" style="padding-top:12px;border-top:1px solid var(--border)">
+          <span class="text-secondary">Total</span>
+          <strong style="font-size:20px" class="text-gold" id="purchase-price">—</strong>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeModal('modal-purchase')">Cancel</button>
+        <button class="btn btn-primary" id="confirm-purchase-btn">Confirm Demo Purchase</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="modal-withdraw">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title">Withdraw Funds</div>
+        <button class="modal-close" onclick="closeModal('modal-withdraw')">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="demo-notice">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+          <span>Demo only — funds stay in local state. No real transfer occurs.</span>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Amount (USDT)</label>
+          <input class="form-input" id="withdraw-amount" type="number" step="0.01" placeholder="0.00" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Destination Address</label>
+          <input class="form-input" id="withdraw-address" placeholder="TXyz... or 0x..." />
+          <p class="form-hint">Any string works for this prototype.</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeModal('modal-withdraw')">Cancel</button>
+        <button class="btn btn-gold" onclick="submitWithdraw()">Withdraw (Demo)</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="modal-deposit">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title">Deposit Funds</div>
+        <button class="modal-close" onclick="closeModal('modal-deposit')">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="demo-notice">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+          <span>Credits your <strong>demo balance</strong> instantly. No real payment gateway.</span>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Amount (USDT)</label>
+          <input class="form-input" id="deposit-amount" type="number" step="0.01" placeholder="100.00" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Network (demo)</label>
+          <select class="form-select">
+            <option>TRC-20 (Tron)</option>
+            <option>ERC-20 (Ethereum)</option>
+            <option>BEP-20 (BSC)</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeModal('modal-deposit')">Cancel</button>
+        <button class="btn btn-primary" onclick="submitDeposit()">Credit Demo Balance</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toasts -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
