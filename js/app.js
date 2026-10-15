@@ -3,24 +3,24 @@
 
 const DEMO = {
   user: {
-    name: "Alex Rivera",
-    email: "alex.demo@hashnova.io",
-    avatar: "AR",
-    tier: "Gold Miner",
+    name: "Precision",
+    email: "precision@hashnova.io",
+    avatar: "P",
+    tier: "Premium Plan",
     joined: "2025-11-12",
     referralCode: "HASH-AR7X9K"
   },
   balances: {
-    available: 2847.52,   // USDT (demo)
-    pending: 124.80,
-    totalEarned: 15620.45,
-    btc: 0.04218,
-    eth: 1.284
+    available: 248.75,   // USDT (demo)
+    pending: 12.36,
+    totalEarned: 1284.32,
+    btc: 0.003682,
+    eth: 0.0214
   },
   hashrate: {
-    total: 842.5,         // TH/s
+    total: 120.5,         // TH/s
     activeMiners: 4,
-    efficiency: 98.2
+    efficiency: 97.8
   },
   plans: [
     {
@@ -367,12 +367,25 @@ function updateDashboard() {
 function renderChart() {
   const container = $("#hashrate-chart");
   if (!container) return;
-  const max = Math.max(...DEMO.hashrateHistory);
-  container.innerHTML = `<div class="chart-label">Hashrate (24h) — Demo simulation</div>` +
-    DEMO.hashrateHistory.map(v => {
-      const h = Math.max(4, (v / max) * 100);
-      return `<div class="chart-bar" style="height:${h}%" title="${v} TH/s"></div>`;
-    }).join("");
+  const values = [6.6, 6.3, 10.8, 8.4, 12.7, 10.1, 16.7];
+  const max = 20, min = 0;
+  const w = 720, h = 180, px = 18, py = 12;
+  const points = values.map((v,i)=>{
+    const x = px + (i/(values.length-1))*(w-px*2);
+    const y = h-py-((v-min)/(max-min))*(h-py*2);
+    return [x,y];
+  });
+  const line = points.map(p=>p.join(',')).join(' ');
+  const area = `${px},${h-py} ${line} ${w-px},${h-py}`;
+  const labels = ['Oct 8','Oct 9','Oct 10','Oct 11','Oct 12','Oct 13','Oct 14'];
+  container.innerHTML = `<svg viewBox="0 0 ${w} ${h+26}" preserveAspectRatio="none" aria-hidden="true">
+    <defs><linearGradient id="earnFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#13e995" stop-opacity=".34"/><stop offset="1" stop-color="#13e995" stop-opacity="0"/></linearGradient></defs>
+    <polygon points="${area}" fill="url(#earnFill)"/>
+    <polyline points="${line}" fill="none" stroke="#16ef9a" stroke-width="3" vector-effect="non-scaling-stroke"/>
+    ${points.map(([x,y])=>`<circle cx="${x}" cy="${y}" r="4" fill="#e9fff7" stroke="#16ef9a" stroke-width="2" vector-effect="non-scaling-stroke"/>`).join('')}
+    ${labels.map((t,i)=>{const x=px+(i/(labels.length-1))*(w-px*2);return `<text x="${x}" y="${h+17}" text-anchor="middle" fill="#71889b" font-size="9">${t}</text>`}).join('')}
+    ${[0,5,10,15,20].map(v=>{const y=h-py-(v/max)*(h-py*2);return `<text x="0" y="${y+3}" fill="#71889b" font-size="9">$${v}</text>`}).join('')}
+  </svg>`;
 }
 
 function renderPlans() {
