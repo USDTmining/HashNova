@@ -1,6 +1,8 @@
-/* HashNova API bridge. The UI remains usable as a prototype with ?demo=1. */
+/* HashNova API bridge. The UI defaults to a browser-only demo; add ?api=1 to opt into a configured backend. */
 window.HashNovaAPI = (() => {
-  const enabled = location.protocol !== 'file:' && !new URLSearchParams(location.search).has('demo');
+  const params = new URLSearchParams(location.search);
+  // Backend mode is opt-in: open with ?api=1 only when a real API server is available.
+  const enabled = location.protocol !== 'file:' && params.get('api') === '1';
   const base = '/api';
   async function request(path, options = {}) {
     const res = await fetch(base + path, {

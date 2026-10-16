@@ -1,4 +1,4 @@
-/* Edge Nexus Cloud Mining Prototype - Simulated Data & Interactions
+/* HashNova Cloud Mining Prototype - Simulated Data & Interactions
    ALL BALANCES, HASHRATES, AND TRANSACTIONS ARE DEMO ONLY */
 
 const DEMO = {
@@ -133,9 +133,20 @@ const DEMO = {
   hashrateHistory: [780, 795, 810, 805, 820, 835, 840, 838, 845, 850, 848, 842, 855, 860, 858, 845, 840, 838, 842, 848, 850, 845, 842, 842.5]
 };
 
+// Browser-only demo auth. This is for product previews, not production authentication.
+const AUTH_USERS_KEY = "hashnova_demo_users_v1";
+const AUTH_SESSION_KEY = "hashnova_demo_session_v1";
+function safeStorageRead(key) { try { return localStorage.getItem(key); } catch { return null; } }
+function safeStorageWrite(key, value) { try { localStorage.setItem(key, value); return true; } catch { return false; } }
+function safeStorageRemove(key) { try { localStorage.removeItem(key); } catch {} }
+function readDemoSession() {
+  try { const value = JSON.parse(safeStorageRead(AUTH_SESSION_KEY) || "null"); return value && value.email ? value : null; }
+  catch { return null; }
+}
+
 // State
-let currentPage = "dashboard";
-let isLoggedIn = true; // Start logged in for demo convenience
+let currentPage = "landing";
+let isLoggedIn = Boolean(readDemoSession());
 
 // DOM helpers
 const $ = (sel, ctx = document) => ctx.querySelector(sel);
@@ -177,7 +188,7 @@ function navigate(page) {
     register: "Create Account"
   };
   const titleEl = $("#page-title");
-  if (titleEl) titleEl.textContent = titles[page] || "Edge Nexus";
+  if (titleEl) titleEl.textContent = titles[page] || "HashNova";
 
   // Close mobile sidebar
   closeSidebar();
@@ -346,7 +357,7 @@ async function submitDeposit() {
 // Live hashrate tick (cosmetic)
 function tickHashrate() {
   const variance = (Math.random() - 0.5) * 8;
-  DEMO.hashrate.total = Math.max(800, DEMO.hashrate.total + variance * 0.1);
+  DEMO.hashrate.total = Math.max(10, DEMO.hashrate.total + variance * 0.1);
   const el = $("#live-hashrate");
   if (el) el.textContent = `${fmt.th(DEMO.hashrate.total)} TH/s`;
   // Small earnings tick
@@ -502,7 +513,12 @@ function copyReferral() {
 
 
 async function loadActivity(){
-  if (!window.HashNexusAPI && !window.HashNovaAPI?.enabled) return;
+  if (!window.HashNovaAPI?.enabled) {
+    const wb = $("#activity-wallet-body"); const ob = $("#activity-orders-body");
+    if (wb) wb.innerHTML = DEMO.transactions.slice(0,8).map(t=>`<tr><td><span class="badge badge-gray">${t.type}</span></td><td class="mono ${t.amount>0?'text-green':'text-gold'}">${t.amount>0?'+':'-'}${fmt.usd(Math.abs(t.amount))} ${t.asset}</td><td>${t.status}</td><td class="mono">${t.id}</td><td class="text-muted">${t.date}</td></tr>`).join("") || '<tr><td colspan="5" class="text-muted">No demo activity yet.</td></tr>';
+    if (ob) ob.innerHTML = (tradingState.positions||[]).map(p=>`<tr><td class="mono">${p.symbol}</td><td>${p.side}</td><td>${p.quantity}</td><td>open</td><td class="text-muted">${p.openedAt||'Just now'}</td></tr>`).join("") || '<tr><td colspan="5" class="text-muted">No simulated trading orders yet.</td></tr>';
+    return;
+  }
   try {
     const [tx, orders] = await Promise.all([HashNovaAPI.transactions(), HashNovaAPI.orders()]);
     const wb = $("#activity-wallet-body");
@@ -525,7 +541,47 @@ async function loadKyc(){
 }
 
 async function submitKyc(){
+  if(!window.HashNovaAPI?.enabled){const title=$("#kyc-status-title"),copy=$("#kyc-status-copy"),submit=$("#kyc-submit");if(title)title.textContent='Demo request recorded';if(copy)copy.textContent='This confirmation is simulated locally. No identity document was uploaded or verified.';if(submit){submit.disabled=true;submit.textContent='Demo request recorded';}showToast('Demo verification request recorded locally.','success');return;}
   try { const r=await HashNovaAPI.submitKyc($("#kyc-country").value,$("#kyc-document").value); showToast('Verification request submitted','success'); loadKyc(); } catch(e){ showToast(e.message||'Could not submit verification','error'); }
+}
+
+// Local demo identity helpers. Data stays in this browser and is not sent to a server.
+function getLocalDemoUsers() {
+  try { const users = JSON.parse(safeStorageRead(AUTH_USERS_KEY) || "[]"); return Array.isArray(users) ? users : []; }
+  catch { return []; }
+}
+async function hashLocalDemoPassword(password) {
+  // SHA-256 digest where Web Crypto is available; a non-security fallback keeps file previews usable.
+  if (window.crypto?.subtle && window.TextEncoder) {
+    const digest = await window.crypto.subtle.digest("SHA-256", new TextEncoder().encode(password));
+    return "sha256:" + Array.from(new Uint8Array(digest), b => b.toString(16).padStart(2, "0")).join("");
+  }
+  let h1 = 0x811c9dc5;
+  for (let i = 0; i < password.length; i++) { h1 ^= password.charCodeAt(i); h1 = Math.imul(h1, 0x01000193); }
+  return "demo-fallback:" + (h1 >>> 0).toString(16) + ":" + password.length;
+}
+function applyDemoIdentity(session) {
+  if (!session) return;
+  DEMO.user.name = session.fullName || session.name || "Demo Explorer";
+  DEMO.user.email = session.email || "demo@hashnova.local";
+  DEMO.user.role = "client";
+  DEMO.user.avatar = DEMO.user.name.slice(0, 1).toUpperCase();
+  const displayName = DEMO.user.name;
+  const names = $$(".sidebar .user-info .name"); names.forEach(el => el.textContent = displayName);
+  $$(".dashboard-profile .profile-copy strong").forEach(el => el.textContent = displayName);
+  $$(".sidebar .avatar, .profile-avatar").forEach(el => { if (el.classList.contains("profile-avatar")) el.textContent = DEMO.user.avatar; else el.textContent = DEMO.user.avatar; });
+  const greeting = $(".greeting-title"); if (greeting) greeting.innerHTML = `Welcome back, ${escapeHtml(displayName)} <span aria-hidden="true">✦</span>`;
+  const profileName = $("#profile-full-name"); if (profileName) profileName.value = displayName;
+  const profileEmail = $("#profile-email"); if (profileEmail) profileEmail.value = DEMO.user.email;
+  updateAdminNav();
+}
+function enterGuestDemo() {
+  const session = { fullName: "Demo Explorer", email: "demo@hashnova.local", guest: true, createdAt: new Date().toISOString() };
+  safeStorageWrite(AUTH_SESSION_KEY, JSON.stringify(session));
+  isLoggedIn = true;
+  applyDemoIdentity(session);
+  showToast("Demo workspace opened. All activity is simulated.", "success");
+  navigate("dashboard");
 }
 
 // Authentication + backend synchronization
@@ -592,32 +648,71 @@ async function doLogin(e) {
   e?.preventDefault();
   const form = e?.target;
   const inputs = form ? [...form.querySelectorAll('input')] : [];
-  const email = inputs.find(i => i.type === 'email')?.value || '';
+  const email = (inputs.find(i => i.type === 'email')?.value || '').trim().toLowerCase();
   const password = inputs.find(i => i.type === 'password')?.value || '';
+  if (!email || !password) return showToast('Enter your email and password.', 'error');
   if (window.HashNovaAPI?.enabled) {
-    try { await HashNovaAPI.login(email, password); isLoggedIn = true; await syncFromApi(); showToast('Signed in securely', 'success'); navigate('dashboard'); }
-    catch (err) { showToast(err.message, 'error'); }
+    try {
+      await HashNovaAPI.login(email, password);
+      isLoggedIn = true;
+      await syncFromApi();
+      showToast('Signed in successfully', 'success');
+      navigate('dashboard');
+    } catch (err) { showToast(err.message || 'Could not sign in', 'error'); }
     return;
   }
-  isLoggedIn = true; showToast('Signed in to demo account', 'success'); navigate('dashboard');
+  // Optional sample credentials help a presenter open the same demo quickly.
+  if (email === 'demo@hashnova.local' && password === 'demo1234') {
+    const session = { fullName: 'Demo Explorer', email, guest: true, createdAt: new Date().toISOString() };
+    safeStorageWrite(AUTH_SESSION_KEY, JSON.stringify(session));
+    isLoggedIn = true; applyDemoIdentity(session); showToast('Signed in to the sample demo.', 'success'); navigate('dashboard'); return;
+  }
+  const user = getLocalDemoUsers().find(u => u.email === email);
+  if (!user) return showToast('No demo account found for this email. Create an account first.', 'error');
+  try {
+    const passwordHash = await hashLocalDemoPassword(password);
+    if (passwordHash !== user.passwordHash) return showToast('Incorrect email or password.', 'error');
+    const session = { fullName: user.fullName, email: user.email, createdAt: user.createdAt };
+    if (!safeStorageWrite(AUTH_SESSION_KEY, JSON.stringify(session))) showToast('Storage is unavailable. This session may not persist after closing the browser.', 'info');
+    isLoggedIn = true; applyDemoIdentity(session); showToast('Signed in to your local demo account.', 'success'); navigate('dashboard');
+  } catch { showToast('Could not verify this demo account in this browser.', 'error'); }
 }
 async function doRegister(e) {
   e?.preventDefault();
   const form = e?.target;
   const inputs = form ? [...form.querySelectorAll('input')] : [];
-  const fullName = inputs.find(i => i.type === 'text')?.value || '';
-  const email = inputs.find(i => i.type === 'email')?.value || '';
+  const fullName = (inputs.find(i => i.type === 'text')?.value || '').trim().replace(/\s+/g, ' ');
+  const email = (inputs.find(i => i.type === 'email')?.value || '').trim().toLowerCase();
   const password = inputs.find(i => i.type === 'password')?.value || '';
+  if (fullName.length < 2) return showToast('Enter your full name.', 'error');
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return showToast('Enter a valid email address.', 'error');
+  if (password.length < 8) return showToast('Use a password with at least 8 characters.', 'error');
   if (window.HashNovaAPI?.enabled) {
-    try { await HashNovaAPI.register(fullName, email, password); isLoggedIn = true; await syncFromApi(); showToast('Account created securely', 'success'); navigate('dashboard'); }
-    catch (err) { showToast(err.message, 'error'); }
+    try {
+      await HashNovaAPI.register(fullName, email, password);
+      isLoggedIn = true; await syncFromApi(); showToast('Account created successfully', 'success'); navigate('dashboard');
+    } catch (err) { showToast(err.message || 'Could not create account', 'error'); }
     return;
   }
-  isLoggedIn = true; showToast('Demo account created — welcome!', 'success'); navigate('dashboard');
+  if (email === 'demo@hashnova.local') return showToast('That email is reserved for the sample demo. Use another email.', 'error');
+  const users = getLocalDemoUsers();
+  if (users.some(u => u.email === email)) return showToast('An account with this email already exists. Sign in instead.', 'error');
+  try {
+    const user = { fullName, email, passwordHash: await hashLocalDemoPassword(password), createdAt: new Date().toISOString() };
+    users.push(user);
+    if (!safeStorageWrite(AUTH_USERS_KEY, JSON.stringify(users))) return showToast('This browser could not save local storage. Check browser privacy settings and try again.', 'error');
+    const session = { fullName, email, createdAt: user.createdAt };
+    safeStorageWrite(AUTH_SESSION_KEY, JSON.stringify(session));
+    isLoggedIn = true; applyDemoIdentity(session); updateDashboard(); renderWallet();
+    showToast('Local demo account created. You can sign in again on this browser.', 'success'); navigate('dashboard');
+  } catch { showToast('Could not create the local demo account. Please try a modern browser.', 'error'); }
 }
 async function doLogout() {
   if (window.HashNovaAPI?.enabled) { try { await HashNovaAPI.logout(); } catch {} }
-  isLoggedIn = false; showToast(window.HashNovaAPI?.enabled ? 'Signed out securely' : 'Signed out of demo', 'info'); navigate('landing');
+  safeStorageRemove(AUTH_SESSION_KEY);
+  isLoggedIn = false;
+  showToast(window.HashNovaAPI?.enabled ? 'Signed out' : 'Signed out of the local demo', 'info');
+  navigate('landing');
 }
 
 // Init
@@ -640,9 +735,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Live tick every 4s
   setInterval(tickHashrate, 4000);
 
-  // Start on dashboard, then replace demo state with server state when API mode is active.
-  navigate("dashboard");
+  // Static hosting defaults to the browser-only demo. Add ?api=1 only for a configured backend.
   if (window.HashNovaAPI?.enabled) {
+    navigate("dashboard");
     const authenticated = await syncFromApi();
     if (!authenticated) navigate("landing");
     const events = HashNovaAPI.events({
@@ -652,6 +747,10 @@ document.addEventListener("DOMContentLoaded", async () => {
       'position.closed': () => { if(currentPage==='trading') loadTradingData(); }
     });
     window.hashNovaEventStream = events;
+  } else {
+    const session = readDemoSession();
+    if (session) { isLoggedIn = true; applyDemoIdentity(session); navigate("dashboard"); }
+    else { isLoggedIn = false; navigate("landing"); }
   }
 
   // Close modals on overlay click
@@ -663,11 +762,25 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 // ===== Forex trading terminal =====
-let tradingState = { accounts: [], instruments: [], quotes: [], selectedAccount: null, selectedSymbol: 'EURUSD', assetClass: '', timeframe: '1H', watchlist: JSON.parse(localStorage.getItem('edgeNexusWatchlist') || 'null') || ['EURUSD','GBPUSD','XAUUSD','US30'] };
+let tradingState = { accounts: [], instruments: [], quotes: [], positions: [], selectedAccount: null, selectedSymbol: 'EURUSD', assetClass: '', timeframe: '1H', watchlist: JSON.parse(localStorage.getItem('edgeNexusWatchlist') || 'null') || ['EURUSD','GBPUSD','XAUUSD','US30'] };
 let tradingQuoteTimer = null;
 function money(n){ return `$${Number(n||0).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}`; }
 async function loadTradingData(){
-  if (!window.HashNovaAPI?.enabled) { showToast('Open the app through the backend server to use Trading Terminal.','info'); return; }
+  if (!window.HashNovaAPI?.enabled) {
+    if (!tradingState.instruments.length) {
+      tradingState.accounts = [{ id:'local-demo-account', account_number:'HN-DEMO-001', account_type:'demo', leverage:100, balance:10000, equity:10000, margin_used:0, margin_available:10000, margin_level:0, risk_state:'normal' }];
+      tradingState.selectedAccount = tradingState.selectedAccount || tradingState.accounts[0].id;
+      tradingState.instruments = [
+        {symbol:'EURUSD',asset_class:'forex',digits:5,contract_size:100000},{symbol:'GBPUSD',asset_class:'forex',digits:5,contract_size:100000},{symbol:'USDJPY',asset_class:'forex',digits:3,contract_size:100000},
+        {symbol:'XAUUSD',asset_class:'metals',digits:2,contract_size:100},{symbol:'BTCUSD',asset_class:'crypto',digits:2,contract_size:1},{symbol:'US30',asset_class:'indices',digits:1,contract_size:1}
+      ];
+      tradingState.quotes = [{symbol:'EURUSD',bid:1.08421,ask:1.08435},{symbol:'GBPUSD',bid:1.30210,ask:1.30228},{symbol:'USDJPY',bid:149.325,ask:149.341},{symbol:'XAUUSD',bid:2672.45,ask:2672.85},{symbol:'BTCUSD',bid:67340.20,ask:67365.80},{symbol:'US30',bid:43218.4,ask:43220.7}];
+    }
+    renderTradingTerminal();
+    renderPositions(tradingState.positions || []);
+    renderAccountHealth(tradingState.accounts.find(a=>a.id===tradingState.selectedAccount));
+    return;
+  }
   try {
     const [a,i,q] = await Promise.all([HashNovaAPI.tradingAccounts(), HashNovaAPI.tradingInstruments(), HashNovaAPI.tradingQuotes()]);
     tradingState.accounts=a.accounts||[]; tradingState.instruments=i.instruments||[]; tradingState.quotes=q.quotes||[];
@@ -718,10 +831,16 @@ function renderPriceChart(){
 }
 function openRealFunding(){ const a=tradingState.accounts.find(x=>x.id===tradingState.selectedAccount); if(!a) return showToast('Select a trading account first','error'); if(a.account_type!=='real') return showToast('Select a real trading account to fund it','info'); const label=$('#real-funding-account-label'); if(label) label.textContent=`Selected account: ${a.account_number} · Real`; openModal('modal-real-funding'); }
 async function fundSelectedRealAccount(){ const a=tradingState.accounts.find(x=>x.id===tradingState.selectedAccount); const amount=Number($('#real-funding-amount')?.value); if(!a||a.account_type!=='real') return showToast('Select a real trading account','error'); if(!amount||amount<=0) return showToast('Enter a valid amount','error'); try{ const r=await HashNovaAPI.fundRealAccount(a.id,amount); closeModal('modal-real-funding'); showToast(`${money(amount)} transferred from wallet to real account`,'success'); await loadTradingData(); }catch(e){ showToast(e.message,'error'); } }
-async function reloadDemoFunds(){ try{const result=await HashNovaAPI.reloadDemoFunds();showToast('Demo account reloaded to $10,000','success');await loadTradingData();}catch(e){showToast(e.message,'error');} }
-async function closeTradingPosition(id){ try{const result=await HashNovaAPI.closePosition(id);showToast(`Position closed · ${money(result.pnl)} P&L`,'success');await loadTradingData();}catch(e){showToast(e.message,'error');} }
+async function reloadDemoFunds(){ if(!window.HashNovaAPI?.enabled){const a=tradingState.accounts.find(x=>x.id===tradingState.selectedAccount);if(a){a.balance=10000;a.equity=10000;a.margin_used=0;a.margin_available=10000;}tradingState.positions=[];renderPositions([]);renderAccountHealth(a);showToast('Demo account reset to $10,000. No real funds involved.','success');return;} try{const result=await HashNovaAPI.reloadDemoFunds();showToast('Demo account reloaded to $10,000','success');await loadTradingData();}catch(e){showToast(e.message,'error');} }
+async function closeTradingPosition(id){ if(!window.HashNovaAPI?.enabled){tradingState.positions=(tradingState.positions||[]).filter(p=>p.id!==id);renderPositions(tradingState.positions);showToast('Demo position closed (simulated).','success');return;} try{const result=await HashNovaAPI.closePosition(id);showToast(`Position closed · ${money(result.pnl)} P&L`,'success');await loadTradingData();}catch(e){showToast(e.message,'error');} }
 async function placeTrade(side){
   if(!tradingState.selectedAccount)return showToast('No trading account selected','error');
   const symbol=tradingState.selectedSymbol; const quantity=Number($('#order-quantity')?.value); if(!quantity||quantity<=0)return showToast('Enter a valid lot size','error');
+  if(!window.HashNovaAPI?.enabled){
+    const quote=tradingState.quotes.find(x=>x.symbol===symbol);const instrument=tradingState.instruments.find(x=>x.symbol===symbol);const price=Number(side==='buy'?quote?.ask:quote?.bid);
+    if(!quote||!price)return showToast('Demo price is not available for this instrument.','error');
+    tradingState.positions=tradingState.positions||[];tradingState.positions.unshift({id:'demo-pos-'+Date.now(),symbol,side:side==='buy'?'long':'short',quantity,entry_price:price,markPrice:price,unrealizedPnl:0,openedAt:new Date().toLocaleString()});
+    renderPositions(tradingState.positions);showToast(`${side.toUpperCase()} ${symbol} ${quantity.toFixed(2)} lots simulated at ${price.toFixed(Number(instrument?.digits??5))}.`,'success');return;
+  }
   try{const result=await HashNovaAPI.placeOrder({accountId:tradingState.selectedAccount,symbol,side,quantity,orderType:'market'});showToast(`${side.toUpperCase()} ${symbol} ${quantity.toFixed(2)} lots executed at ${Number(result.execution.price).toFixed(5)}`,'success');await loadTradingData();}catch(e){showToast(e.message,'error');}
 }
