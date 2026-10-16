@@ -1,5 +1,5 @@
 /* HashNova Cloud Mining Prototype - Simulated Data & Interactions
-   ALL BALANCES, HASHRATES, AND TRANSACTIONS ARE DEMO ONLY */
+   ALL BALANCES, HASHRATES, AND TRANSACTIONS ARE DEMO ONLY, Not Real Yet, Once you purchase it, I will then integrate the real one for YOU*/
 
 const DEMO = {
   user: {
@@ -545,7 +545,7 @@ async function submitKyc(){
   try { const r=await HashNovaAPI.submitKyc($("#kyc-country").value,$("#kyc-document").value); showToast('Verification request submitted','success'); loadKyc(); } catch(e){ showToast(e.message||'Could not submit verification','error'); }
 }
 
-// Local demo identity helpers. Data stays in this browser and is not sent to a server.
+// Local demo identity helpers. Data stays in this browser and is not sent to a server, once you buy this project, I will then integrate it for You.
 function getLocalDemoUsers() {
   try { const users = JSON.parse(safeStorageRead(AUTH_USERS_KEY) || "[]"); return Array.isArray(users) ? users : []; }
   catch { return []; }
