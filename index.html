@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Edge Nexus — Forex Trading Platform</title>
-  <meta name="description" content="Edge Nexus responsive white-label Forex trading client portal and broker operations platform." />
+  <title>HashNova — Cloud Mining & Trading Demo</title>
+  <meta name="description" content="Explore HashNova, a polished interactive cloud-mining and trading demo. All balances and activity are simulated." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -18,57 +18,73 @@
   </div>
 
   <!-- ========== AUTH / LANDING SHELL ========== -->
-  <div id="auth-shell" class="hidden">
+  <div id="auth-shell">
     <!-- Landing -->
-    <div id="page-landing" class="page">
-      <div class="landing-hero">
-        <div class="logo" style="justify-content:center;margin-bottom:32px;font-size:28px">
-          <div class="logo-icon">E</div>
-          Edge <span>Nexus</span>
-        </div>
-        <h1>Cloud Accounts,<br/>Elevated.</h1>
-        <p>Institutional-grade SHA-256 hashrate on demand. Activate contracts in seconds. Track performance in real time. This is a fully interactive UI prototype.</p>
-        <div class="flex gap-12" style="justify-content:center;flex-wrap:wrap">
-          <button class="btn btn-primary btn-lg" onclick="navigate('register')">Open Demo Account</button>
-          <button class="btn btn-outline btn-lg" onclick="navigate('login')">Sign In</button>
-        </div>
-        <div class="hero-stats">
-          <div>
-            <div class="hero-stat-value">2.4 EH/s</div>
-            <div class="hero-stat-label">Network Capacity (demo)</div>
+    <div id="page-landing" class="page active">
+      <header class="landing-nav">
+        <a class="landing-brand" href="#home" onclick="navigate('landing');return false" aria-label="HashNova home">
+          <span class="brand-symbol" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none"><path d="M6 7.5 16 2l10 5.5v17L16 30 6 24.5v-17Z" stroke="currentColor" stroke-width="1.8"/><path d="M11 10v12m10-12v12M11 16h10" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></span>
+          <span>Hash<span class="brand-accent">Nova</span><small>MINING, MADE CLEAR</small></span>
+        </a>
+        <nav class="landing-nav-links" aria-label="Main navigation">
+          <a href="#features" onclick="document.getElementById('landing-features')?.scrollIntoView({behavior:'smooth'});return false">Platform</a>
+          <a href="#how-it-works" onclick="document.getElementById('landing-how')?.scrollIntoView({behavior:'smooth'});return false">How it works</a>
+          <button class="landing-nav-signin" onclick="navigate('login')">Sign in</button>
+          <button class="btn btn-primary landing-nav-cta" onclick="navigate('register')">Create account <span aria-hidden="true">↗</span></button>
+        </nav>
+      </header>
+
+      <main>
+        <section class="landing-hero landing-hero-v2">
+          <div class="landing-hero-copy">
+            <div class="eyebrow"><span class="eyebrow-dot"></span> INTERACTIVE CLOUD-MINING DEMO</div>
+            <h1>Explore the next<br class="desktop-break"/> era of <span>digital mining.</span></h1>
+            <p class="landing-lede">A clearer way to explore mining plans, performance, wallet activity and trading tools — in one beautifully connected workspace.</p>
+            <div class="landing-actions">
+              <button class="btn btn-primary btn-lg" onclick="enterGuestDemo()">Explore the demo <span aria-hidden="true">→</span></button>
+              <button class="btn btn-outline btn-lg" onclick="navigate('register')">Create a free account</button>
+            </div>
+            <div class="landing-proof-row">
+              <div class="proof-avatars" aria-hidden="true"><span>H</span><span>N</span><span>+</span></div>
+              <p><strong>Ready to explore</strong><br/><span>No payment or wallet connection required</span></p>
+            </div>
           </div>
-          <div>
-            <div class="hero-stat-value">48k+</div>
-            <div class="hero-stat-label">Active Contracts</div>
+
+          <div class="landing-visual" aria-label="Illustration of a simulated HashNova performance dashboard">
+            <div class="visual-orbit orbit-one"></div><div class="visual-orbit orbit-two"></div>
+            <div class="visual-glow"></div>
+            <div class="preview-window">
+              <div class="preview-topbar"><div class="preview-brand"><span class="preview-brand-mark">H</span><span>HashNova <small>DEMO CONSOLE</small></span></div><span class="preview-status"><i></i> SIMULATED</span></div>
+              <div class="preview-heading"><div><small>OVERVIEW / PERFORMANCE</small><h3>Your operation at a glance</h3></div><span class="preview-period">Last 7 days⌄</span></div>
+              <div class="preview-metrics">
+                <div><span>Simulated balance</span><strong>$248.75</strong><em>+4.8% <small>demo</small></em></div>
+                <div><span>Active hashrate</span><strong>120.5 <small>TH/s</small></strong><em class="positive-mark">● Running simulation</em></div>
+              </div>
+              <div class="preview-chart-head"><span>Performance overview</span><span>DEMO DATA</span></div>
+              <div class="preview-chart" aria-hidden="true"><div class="chart-y-labels"><span>$15</span><span>$10</span><span>$5</span><span>$0</span></div><svg viewBox="0 0 430 136" preserveAspectRatio="none"><defs><linearGradient id="previewFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#22e6a0" stop-opacity=".25"/><stop offset="1" stop-color="#22e6a0" stop-opacity="0"/></linearGradient></defs><path d="M0 108 C24 105 28 84 54 88 S88 100 112 68 S148 84 173 58 S205 73 234 38 S275 68 300 49 S340 41 359 31 S394 46 430 12 L430 136 L0 136 Z" fill="url(#previewFill)"/><path d="M0 108 C24 105 28 84 54 88 S88 100 112 68 S148 84 173 58 S205 73 234 38 S275 68 300 49 S340 41 359 31 S394 46 430 12" fill="none" stroke="#22e6a0" stroke-width="2.6" vector-effect="non-scaling-stroke"/></svg></div>
+              <div class="preview-chart-labels"><span>OCT 10</span><span>OCT 11</span><span>OCT 12</span><span>OCT 13</span><span>OCT 14</span><span>OCT 15</span><span>OCT 16</span></div>
+              <div class="preview-bottom"><span class="preview-bottom-icon">↗</span><span><strong>Made for exploration</strong><small>Try plans, wallet actions and dashboards with sample data.</small></span><span class="preview-arrow">↗</span></div>
+            </div>
+            <div class="floating-chip chip-one"><span class="chip-pulse"></span><span><b>Demo mode</b><small>No real funds</small></span></div>
+            <div class="floating-chip chip-two"><span class="chip-icon">⌁</span><span><b>All in one view</b><small>Mining · Wallet · Trading</small></span></div>
           </div>
-          <div>
-            <div class="hero-stat-value">99.7%</div>
-            <div class="hero-stat-label">Uptime SLA</div>
+          <div class="hero-footnote"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 2.5 16 5v4.2c0 4-2.4 6.6-6 8.3-3.6-1.7-6-4.3-6-8.3V5l6-2.5Z" stroke="currentColor" stroke-width="1.5"/><path d="m7.2 9.8 1.8 1.8 3.8-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span>Demo environment only. Balances, hashrates, market prices and transactions are simulated.</span></div>
+        </section>
+
+        <section class="landing-feature-band" id="landing-features">
+          <div class="landing-section-heading"><span class="section-kicker">BUILT FOR CLARITY</span><h2>Everything you need to explore.<br/><span>Nothing you need to risk.</span></h2><p>Experience a connected platform using sample data before any production services are linked.</p></div>
+          <div class="landing-feature-grid">
+            <article class="landing-feature-card"><span class="feature-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M13 2 4 14h7l-1 8 10-12h-7l1-8Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span><h3>Mining plans</h3><p>Browse example hashrate contracts and test the activation flow with simulated balances.</p><span class="feature-number">01 / EXPLORE</span></article>
+            <article class="landing-feature-card"><span class="feature-icon gold-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M3 3v18h18M7 14l4-4 4 3 5-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><h3>Readable analytics</h3><p>See performance trends, wallet movements and activity in a single, consistent interface.</p><span class="feature-number">02 / UNDERSTAND</span></article>
+            <article class="landing-feature-card"><span class="feature-icon blue-icon"><svg viewBox="0 0 24 24" fill="none"><rect x="4" y="10" width="16" height="11" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M8 10V7a4 4 0 0 1 8 0v3m-4 5v2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span><h3>Safe to test</h3><p>No real payments, wallets, blockchain transactions or broker executions take place in this prototype.</p><span class="feature-number">03 / SIMULATED</span></article>
           </div>
-        </div>
-      </div>
-      <div class="content" style="max-width:1100px">
-        <div class="grid grid-3 mb-24">
-          <div class="card card-glow text-center">
-            <div style="font-size:28px;margin-bottom:8px">⚡</div>
-            <h3 style="margin-bottom:8px">Instant Activation</h3>
-            <p class="text-secondary" style="font-size:14px">Purchase hashrate and start earning simulated rewards within minutes. No hardware, no electricity bills.</p>
-          </div>
-          <div class="card card-glow text-center">
-            <div style="font-size:28px;margin-bottom:8px">📊</div>
-            <h3 style="margin-bottom:8px">Transparent Metrics</h3>
-            <p class="text-secondary" style="font-size:14px">Live hashrate, efficiency, and payout history. Every number in this prototype is clearly marked as demo data.</p>
-          </div>
-          <div class="card card-glow text-center">
-            <div style="font-size:28px;margin-bottom:8px">🔒</div>
-            <h3 style="margin-bottom:8px">Secure by Design</h3>
-            <p class="text-secondary" style="font-size:14px">Multi-sig wallets, cold storage simulation, and clear separation of demo funds from any real chain activity.</p>
-          </div>
-        </div>
-        <p class="text-center text-muted" style="font-size:13px;padding-bottom:40px">
-          Edge Nexus Broker Platform · MT5-compatible architecture · Demo market feed until broker integration
-        </p>
-      </div>
+        </section>
+
+        <section class="landing-how" id="landing-how"><div><span class="section-kicker">YOUR FIRST LOOK</span><h2>From first click<br/>to full dashboard.</h2><p>Start exploring instantly, or create a local demo account to return to your own sign-in later.</p></div><div class="how-steps"><div class="how-step"><span>01</span><div><strong>Enter the demo</strong><p>Open a sample workspace without registering.</p></div></div><div class="how-step"><span>02</span><div><strong>Explore every screen</strong><p>Move between dashboard, plans, wallet, contracts and activity.</p></div></div><div class="how-step"><span>03</span><div><strong>Save your demo login</strong><p>Create an account stored only in this browser for repeat visits.</p></div></div></div></section>
+
+        <section class="landing-final-cta"><div><span class="section-kicker">TAKE A CLOSER LOOK</span><h2>Discover HashNova for yourself.</h2><p>Explore the experience with sample data, at your own pace.</p></div><div class="landing-final-actions"><button class="btn btn-primary btn-lg" onclick="enterGuestDemo()">Launch demo <span aria-hidden="true">→</span></button><button class="btn btn-outline" onclick="navigate('register')">Create account</button></div></section>
+      </main>
+      <footer class="landing-footer"><a class="landing-footer-brand" href="#home" onclick="navigate('landing');return false">Hash<span>Nova</span></a><span>© 2026 HashNova Demo. For product evaluation only.</span><span>Demo data · No real financial activity</span></footer>
     </div>
 
     <!-- Login -->
@@ -84,16 +100,17 @@
           <form onsubmit="doLogin(event)">
             <div class="form-group">
               <label class="form-label">Email</label>
-              <input class="form-input" type="email" value="demo@edgenexus.local" placeholder="you@example.com" required />
+              <input class="form-input" type="email" name="email" autocomplete="email" placeholder="you@example.com" required />
             </div>
             <div class="form-group">
               <label class="form-label">Password</label>
-              <input class="form-input" type="password" value="demo1234" placeholder="••••••••" required />
+              <input class="form-input" type="password" name="password" autocomplete="current-password" placeholder="Enter your password" required />
             </div>
             <button type="submit" class="btn btn-primary w-full btn-lg">Sign In to Demo</button>
           </form>
+          <div class="auth-demo-hint"><strong>Just here to explore?</strong><span>Launch the demo without an account.</span><button type="button" onclick="enterGuestDemo()">Enter demo workspace →</button></div>
           <p class="text-center mt-16 text-secondary" style="font-size:13px">
-            No account? <a href="#" onclick="navigate('register');return false">Create trading account</a>
+            New to HashNova? <a href="#" onclick="navigate('register');return false">Create an account</a>
           </p>
           <p class="text-center mt-8">
             <a href="#" onclick="navigate('landing');return false" class="text-muted" style="font-size:12px">← Back to home</a>
@@ -111,19 +128,19 @@
             Hash<span>Nova</span>
           </div>
           <h2>Create account</h2>
-          <p class="subtitle">Start your cloud trading demo</p>
+          <p class="subtitle">Create a browser-only demo account</p>
           <form onsubmit="doRegister(event)">
             <div class="form-group">
               <label class="form-label">Full name</label>
-              <input class="form-input" type="text" placeholder="Alex Rivera" required />
+              <input class="form-input" type="text" name="fullName" autocomplete="name" placeholder="Your full name" minlength="2" maxlength="80" required />
             </div>
             <div class="form-group">
               <label class="form-label">Email</label>
-              <input class="form-input" type="email" placeholder="you@example.com" required />
+              <input class="form-input" type="email" name="email" autocomplete="email" placeholder="you@example.com" required />
             </div>
             <div class="form-group">
               <label class="form-label">Password</label>
-              <input class="form-input" type="password" placeholder="Min. 8 characters" required />
+              <input class="form-input" type="password" name="password" autocomplete="new-password" placeholder="At least 8 characters" minlength="8" required />
             </div>
             <div class="demo-notice">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
@@ -140,15 +157,15 @@
   </div>
 
   <!-- ========== MAIN APP SHELL ========== -->
-  <div class="app-shell">
+  <div class="app-shell hidden">
     <div class="sidebar-overlay" onclick="closeSidebar()"></div>
 
     <!-- Sidebar -->
     <aside class="sidebar">
       <div class="sidebar-header">
         <div class="logo">
-          <div class="logo-icon">E</div>
-          Edge <span>Nexus</span>
+          <div class="logo-icon">H</div>
+          Hash<span>Nova</span>
         </div>
       </div>
       <nav class="nav-section">
@@ -310,7 +327,7 @@
             <article class="phone-preview panel">
               <div class="phone-screen">
                 <div class="phone-notch"></div>
-                <div class="phone-top"><strong>⚡ Edge Nexus</strong><span>☰</span></div>
+                <div class="phone-top"><strong>⚡ HashNova</strong><span>☰</span></div>
                 <div class="phone-balance"><span>Total Balance</span><b>$248.75</b><small>≈ 0.003682 BTC</small><button>Withdraw</button></div>
                 <div class="phone-chart"><small>7D Earnings</small><b>$86.52</b><span>+18.7%</span><svg viewBox="0 0 180 65" preserveAspectRatio="none"><polyline points="4,54 25,46 42,51 62,38 83,45 105,29 127,33 151,13 176,20" fill="none" stroke="currentColor" stroke-width="3"/></svg></div>
                 <div class="phone-rigs"><div><strong>Open Positions</strong><span>● 4 Active</span></div><p>🟡 Rig 1 – BTC <em>30.2 TH/s</em></p><p>🔵 Rig 2 – ETH <em>28.7 TH/s</em></p><p>⚪ Rig 3 – LTC <em>22.1 TH/s</em></p><p>🟡 Rig 4 – DOGE <em>19.6 TH/s</em></p></div>
@@ -339,7 +356,7 @@
           </section>
 
           <section class="bottom-hero">
-            <div class="hero-copy"><strong>Edge Nexus</strong><h2>Trade Today. Scale Tomorrow.</h2><p>Secure &nbsp; • &nbsp; Transparent &nbsp; • &nbsp; Broker-ready</p></div>
+            <div class="hero-copy"><strong>HashNova</strong><h2>Trade Today. Scale Tomorrow.</h2><p>Secure &nbsp; • &nbsp; Transparent &nbsp; • &nbsp; Broker-ready</p></div>
             <button onclick="navigate('plans')">Start Accounts Now →</button>
           </section>
         </div>
@@ -351,7 +368,7 @@
               <h2>Trading Terminal</h2>
               <p class="text-secondary">Broker-ready FX workspace with server-side risk controls.</p>
             </div>
-            <div class="trading-live-badge"><span></span> Edge Nexus · MT5-compatible markets</div>
+            <div class="trading-live-badge"><span></span> HashNova · MT5-compatible markets</div>
           </div>
           <section class="trading-layout">
             <div class="trading-main-column">
@@ -433,7 +450,7 @@
           <div class="flex-between mb-24" style="flex-wrap:wrap;gap:12px">
             <div>
               <h2 style="font-size:22px;margin-bottom:4px">Trading Account Types</h2>
-              <p class="text-secondary" style="font-size:14px">Flexible account configurations for the Edge Nexus trading environment.</p>
+              <p class="text-secondary" style="font-size:14px">Flexible account configurations for the HashNova trading environment.</p>
             </div>
           </div>
           <div class="grid grid-4" id="plans-grid">
@@ -598,11 +615,11 @@
               <div class="card-title mb-16">Account Information</div>
               <div class="form-group">
                 <label class="form-label">Full Name</label>
-                <input class="form-input" value="Alex Rivera" />
+                <input class="form-input" id="profile-full-name" value="Demo Explorer" autocomplete="name" />
               </div>
               <div class="form-group">
                 <label class="form-label">Email</label>
-                <input class="form-input" value="demo@edgenexus.local" />
+                <input class="form-input" id="profile-email" value="demo@hashnova.local" autocomplete="email" />
               </div>
               <div class="form-group">
                 <label class="form-label">Tier</label>
@@ -628,7 +645,8 @@
                 <label class="form-label">Confirm Password</label>
                 <input class="form-input" type="password" placeholder="••••••••" />
               </div>
-              <button class="btn btn-outline" onclick="showToast('Password updated (demo)', 'success')">Update Password</button>
+              <button class="btn btn-outline" onclick="showToast('Password changes are not enabled in this browser demo.', 'info')">Update Password</button>
+              <button class="btn btn-outline w-full mt-16" onclick="doLogout()">Sign out of demo</button>
               <hr style="border:none;border-top:1px solid var(--border);margin:24px 0" />
               <div class="flex-between">
                 <div>
@@ -648,10 +666,10 @@
             <div style="display:flex;flex-direction:column;gap:12px">
               <details style="background:var(--bg-elevated);padding:14px 16px;border-radius:8px;border:1px solid var(--border)">
                 <summary style="cursor:pointer;font-weight:600">Is this a real trading platform?</summary>
-                <p class="text-secondary mt-8" style="font-size:14px">No. Edge Nexus is now structured as a broker-ready trading platform. Market execution and client-money movement remain disabled until authorized MT5/LP/payment integrations are connected.</p>
+                <p class="text-secondary mt-8" style="font-size:14px">No. HashNova is presented here as a browser-only demo platform. Market execution and client-money movement remain disabled until authorized MT5/LP/payment integrations are connected.</p>
               </details>
               <details style="background:var(--bg-elevated);padding:14px 16px;border-radius:8px;border:1px solid var(--border)">
-                <summary style="cursor:pointer;font-weight:600">How does Edge Nexus connect to a broker?</summary>
+                <summary style="cursor:pointer;font-weight:600">How does HashNova connect to a broker?</summary>
                 <p class="text-secondary mt-8" style="font-size:14px">In a real product, users purchase a fixed amount of hashrate for a defined period. The provider operates physical miners and distributes proportional rewards. This demo only mimics the interface and flow.</p>
               </details>
               <details style="background:var(--bg-elevated);padding:14px 16px;border-radius:8px;border:1px solid var(--border)">
