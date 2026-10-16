@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>HashNova — Cloud Mining Platform (Demo Prototype)</title>
-  <meta name="description" content="HashNova cloud mining demo prototype. All balances and mining are simulated." />
+  <title>Edge Nexus — Forex Trading Platform</title>
+  <meta name="description" content="Edge Nexus responsive white-label Forex trading client portal and broker operations platform." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -23,13 +23,13 @@
     <div id="page-landing" class="page">
       <div class="landing-hero">
         <div class="logo" style="justify-content:center;margin-bottom:32px;font-size:28px">
-          <div class="logo-icon">H</div>
-          Hash<span>Nova</span>
+          <div class="logo-icon">E</div>
+          Edge <span>Nexus</span>
         </div>
-        <h1>Cloud Mining,<br/>Elevated.</h1>
+        <h1>Cloud Accounts,<br/>Elevated.</h1>
         <p>Institutional-grade SHA-256 hashrate on demand. Activate contracts in seconds. Track performance in real time. This is a fully interactive UI prototype.</p>
         <div class="flex gap-12" style="justify-content:center;flex-wrap:wrap">
-          <button class="btn btn-primary btn-lg" onclick="navigate('register')">Start Mining Demo</button>
+          <button class="btn btn-primary btn-lg" onclick="navigate('register')">Open Demo Account</button>
           <button class="btn btn-outline btn-lg" onclick="navigate('login')">Sign In</button>
         </div>
         <div class="hero-stats">
@@ -66,7 +66,7 @@
           </div>
         </div>
         <p class="text-center text-muted" style="font-size:13px;padding-bottom:40px">
-          HashNova Demo Prototype · Not a real mining service · Built for UI/UX evaluation
+          Edge Nexus Broker Platform · MT5-compatible architecture · Demo market feed until broker integration
         </p>
       </div>
     </div>
@@ -84,7 +84,7 @@
           <form onsubmit="doLogin(event)">
             <div class="form-group">
               <label class="form-label">Email</label>
-              <input class="form-input" type="email" value="alex.demo@hashnova.io" placeholder="you@example.com" required />
+              <input class="form-input" type="email" value="demo@edgenexus.local" placeholder="you@example.com" required />
             </div>
             <div class="form-group">
               <label class="form-label">Password</label>
@@ -93,7 +93,7 @@
             <button type="submit" class="btn btn-primary w-full btn-lg">Sign In to Demo</button>
           </form>
           <p class="text-center mt-16 text-secondary" style="font-size:13px">
-            No account? <a href="#" onclick="navigate('register');return false">Create demo account</a>
+            No account? <a href="#" onclick="navigate('register');return false">Create trading account</a>
           </p>
           <p class="text-center mt-8">
             <a href="#" onclick="navigate('landing');return false" class="text-muted" style="font-size:12px">← Back to home</a>
@@ -111,7 +111,7 @@
             Hash<span>Nova</span>
           </div>
           <h2>Create account</h2>
-          <p class="subtitle">Start your cloud mining demo</p>
+          <p class="subtitle">Start your cloud trading demo</p>
           <form onsubmit="doRegister(event)">
             <div class="form-group">
               <label class="form-label">Full name</label>
@@ -147,8 +147,8 @@
     <aside class="sidebar">
       <div class="sidebar-header">
         <div class="logo">
-          <div class="logo-icon">H</div>
-          Hash<span>Nova</span>
+          <div class="logo-icon">E</div>
+          Edge <span>Nexus</span>
         </div>
       </div>
       <nav class="nav-section">
@@ -157,14 +157,22 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
           Dashboard
         </button>
+        <button class="nav-item" data-page="trading">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 17l6-6 4 4 8-9"/><path d="M17 6h4v4"/></svg>
+          Trading Terminal
+        </button>
         <button class="nav-item" data-page="plans">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-          Mining Plans
+          Account Types
         </button>
         <button class="nav-item" data-page="miners">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 12h.01M10 12h.01M14 12h.01"/></svg>
-          My Contracts
+          Trading Accounts
           <span class="badge">4</span>
+        </button>
+        <button class="nav-item" data-page="activity">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V5"/><path d="M4 19h16"/><path d="M7 15l3-4 3 2 4-6"/></svg>
+          Activity
         </button>
         <button class="nav-item" data-page="wallet">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12V7H5a2 2 0 010-4h14v4"/><path d="M3 5v14a2 2 0 002 2h16v-5"/><path d="M18 12a2 2 0 100 4h4v-4h-4z"/></svg>
@@ -175,7 +183,16 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
           Referrals
         </button>
+        <div class="nav-label admin-nav-label" style="margin-top:12px">Operations</div>
+        <button class="nav-item admin-nav-item" data-page="admin" style="display:none">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V5M4 19h16"/><path d="M8 16l3-4 3 2 5-7"/></svg>
+          Control Center
+        </button>
         <div class="nav-label" style="margin-top:12px">Account</div>
+        <button class="nav-item" data-page="verification">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z"/><path d="M8.5 12l2.2 2.2 4.8-5"/></svg>
+          Verification
+        </button>
         <button class="nav-item" data-page="profile">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
           Profile
@@ -190,7 +207,7 @@
           <div class="avatar">AR</div>
           <div class="user-info">
             <div class="name">Precision</div>
-            <div class="role">Premium Plan</div>
+            <div class="role">Client Account</div>
           </div>
         </div>
       </div>
@@ -205,14 +222,14 @@
           </button>
           <div class="greeting">
             <div class="greeting-title">Good morning, Precision <span>👋</span></div>
-            <div class="greeting-subtitle">Your mining journey is powering a better tomorrow.</div>
+            <div class="greeting-subtitle">Monitor balances, positions and account performance from one place.</div>
           </div>
         </div>
         <div class="topbar-right dashboard-profile">
           <button class="icon-btn" aria-label="Notifications"><span class="notification-dot">3</span><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></button>
           <button class="profile-pill" onclick="navigate('profile')">
             <div class="profile-avatar"><span></span></div>
-            <div class="profile-copy"><strong>Precision</strong><small>Premium Plan</small></div>
+            <div class="profile-copy"><strong>Precision</strong><small>Client Account</small></div>
           </button>
         </div>
       </header>
@@ -230,40 +247,40 @@
             </article>
             <article class="target-stat-card">
               <div class="stat-icon earn-icon">ϟ</div>
-              <div class="target-stat-label">Today's Earnings</div>
+              <div class="target-stat-label">Today’s P&L</div>
               <div class="target-stat-value" id="stat-pending">$12.36</div>
               <div class="target-stat-meta">≈ 0.000183 BTC</div>
               <span class="gain-pill">+12.5%</span>
             </article>
             <article class="target-stat-card">
               <div class="stat-icon btc-icon">₿</div>
-              <div class="target-stat-label">Total Mined</div>
+              <div class="target-stat-label">Total Deposited</div>
               <div class="target-stat-value" id="stat-earned">$1,284.32</div>
-              <div class="target-stat-meta">≈ 0.018723 BTC</div>
+              <div class="target-stat-meta">Wallet and trading funds</div>
               <button class="inline-link" onclick="navigate('wallet')">View Details →</button>
             </article>
             <article class="target-stat-card">
               <div class="stat-icon power-icon">⌁</div>
-              <div class="target-stat-label">Mining Power</div>
-              <div class="target-stat-value"><span id="live-hashrate">120.5 TH/s</span></div>
-              <div class="active-status"><span class="dot"></span> Active</div>
-              <button class="inline-link" onclick="navigate('miners')">Manage Rigs →</button>
+              <div class="target-stat-label">Trading Equity</div>
+              <div class="target-stat-value"><span id="live-hashrate">$0.00</span></div>
+              <div class="active-status"><span class="dot"></span> Account status</div>
+              <button class="inline-link" onclick="navigate('miners')">Manage Accounts →</button>
             </article>
           </section>
 
           <section class="dashboard-grid-main">
             <article class="panel earnings-panel">
               <div class="panel-head">
-                <div class="panel-title"><span class="title-icon">▥</span> Earnings Overview</div>
+                <div class="panel-title"><span class="title-icon">▥</span> Performance Overview</div>
                 <div class="range-tabs"><button class="active">7D</button><button>30D</button><button>90D</button><button>1Y</button></div>
               </div>
               <div class="earnings-total">$86.52 <span>+18.7%</span></div>
-              <div class="earnings-sub">Total earnings (last 7 days)</div>
+              <div class="earnings-sub">Trading performance (last 7 days)</div>
               <div class="line-chart" id="hashrate-chart" aria-label="Earnings chart"></div>
             </article>
 
             <article class="panel assets-panel">
-              <div class="panel-head"><div class="panel-title">Mining Assets</div><button class="manage-link" onclick="navigate('wallet')">Manage</button></div>
+              <div class="panel-head"><div class="panel-title">Trading Accounts</div><button class="manage-link" onclick="navigate('wallet')">Manage</button></div>
               <div class="asset-row"><div class="coin btc">₿</div><div class="asset-copy"><strong>Bitcoin <small>(BTC)</small></strong><span>0.003682 BTC</span></div><div class="asset-value"><strong>$248.75</strong><span>+2.41%</span></div></div>
               <div class="asset-row"><div class="coin eth">◆</div><div class="asset-copy"><strong>Ethereum <small>(ETH)</small></strong><span>0.0214 ETH</span></div><div class="asset-value"><strong>$78.32</strong><span>+1.87%</span></div></div>
               <div class="asset-row"><div class="coin ltc">Ł</div><div class="asset-copy"><strong>Litecoin <small>(LTC)</small></strong><span>0.1523 LTC</span></div><div class="asset-value"><strong>$16.45</strong><span>+1.12%</span></div></div>
@@ -273,7 +290,7 @@
 
           <section class="dashboard-grid-lower">
             <article class="panel rigs-panel">
-              <div class="panel-head"><div class="panel-title"><span class="title-icon">♧</span> Your Mining Rigs</div><button class="manage-link" onclick="navigate('miners')">View All →</button></div>
+              <div class="panel-head"><div class="panel-title"><span class="title-icon">♧</span> Open Positions</div><button class="manage-link" onclick="navigate('miners')">View All →</button></div>
               <div class="rig-grid">
                 <div class="rig-card"><div class="rig-art gold-art">▥</div><div class="rig-copy"><strong>Rig 1 – BTC <span class="online"><i></i> Online</span></strong><span>Hash Rate <b>30.2 TH/s</b></span><span>Earnings (24h) <b>$4.21</b></span></div></div>
                 <div class="rig-card"><div class="rig-art purple-art">◈</div><div class="rig-copy"><strong>Rig 2 – ETH <span class="online"><i></i> Online</span></strong><span>Hash Rate <b>28.7 TH/s</b></span><span>Earnings (24h) <b>$3.96</b></span></div></div>
@@ -284,20 +301,20 @@
 
             <article class="panel quick-panel">
               <div class="panel-head"><div class="panel-title">Quick Actions</div></div>
-              <button class="quick-action primary" onclick="navigate('plans')"><span>🛒</span> Buy Mining Plan</button>
+              <button class="quick-action primary" onclick="navigate('plans')"><span>🛒</span> Open Trading Account</button>
               <button class="quick-action" onclick="openModal('modal-withdraw')"><span>↗</span> Withdraw Funds</button>
-              <button class="quick-action" onclick="navigate('referrals')"><span>♧</span> Invite Friends</button>
+              <button class="quick-action" onclick="navigate('referrals')"><span>♧</span> Invite a Trader</button>
               <button class="quick-action" onclick="navigate('wallet')"><span>▤</span> View Transactions</button>
             </article>
 
             <article class="phone-preview panel">
               <div class="phone-screen">
                 <div class="phone-notch"></div>
-                <div class="phone-top"><strong>⚡ HashNova</strong><span>☰</span></div>
+                <div class="phone-top"><strong>⚡ Edge Nexus</strong><span>☰</span></div>
                 <div class="phone-balance"><span>Total Balance</span><b>$248.75</b><small>≈ 0.003682 BTC</small><button>Withdraw</button></div>
                 <div class="phone-chart"><small>7D Earnings</small><b>$86.52</b><span>+18.7%</span><svg viewBox="0 0 180 65" preserveAspectRatio="none"><polyline points="4,54 25,46 42,51 62,38 83,45 105,29 127,33 151,13 176,20" fill="none" stroke="currentColor" stroke-width="3"/></svg></div>
-                <div class="phone-rigs"><div><strong>My Rigs</strong><span>● 4 Active</span></div><p>🟡 Rig 1 – BTC <em>30.2 TH/s</em></p><p>🔵 Rig 2 – ETH <em>28.7 TH/s</em></p><p>⚪ Rig 3 – LTC <em>22.1 TH/s</em></p><p>🟡 Rig 4 – DOGE <em>19.6 TH/s</em></p></div>
-                <div class="phone-nav"><span>⌂<small>Home</small></span><span>♧<small>Mining</small></span><span>▣<small>Wallet</small></span><span>♙<small>Profile</small></span></div>
+                <div class="phone-rigs"><div><strong>Open Positions</strong><span>● 4 Active</span></div><p>🟡 Rig 1 – BTC <em>30.2 TH/s</em></p><p>🔵 Rig 2 – ETH <em>28.7 TH/s</em></p><p>⚪ Rig 3 – LTC <em>22.1 TH/s</em></p><p>🟡 Rig 4 – DOGE <em>19.6 TH/s</em></p></div>
+                <div class="phone-nav"><span>⌂<small>Home</small></span><span>♧<small>Accounts</small></span><span>▣<small>Wallet</small></span><span>♙<small>Profile</small></span></div>
               </div>
             </article>
           </section>
@@ -306,7 +323,7 @@
             <article class="panel transactions-panel">
               <div class="panel-head"><div class="panel-title"><span class="title-icon">▤</span> Recent Transactions</div><button class="manage-link" onclick="navigate('wallet')">View All →</button></div>
               <div class="tx-list">
-                <div class="tx-row"><span class="tx-coin btc">₿</span><div><strong>Mining Reward</strong><small>Oct 14, 2026<br/>08:42 AM</small></div><b class="positive">+0.000183 BTC<small>$12.44</small></b><span class="completed">Completed</span></div>
+                <div class="tx-row"><span class="tx-coin btc">₿</span><div><strong>Accounts Reward</strong><small>Oct 14, 2026<br/>08:42 AM</small></div><b class="positive">+0.000183 BTC<small>$12.44</small></b><span class="completed">Completed</span></div>
                 <div class="tx-row"><span class="tx-coin eth">◆</span><div><strong>Withdrawal</strong><small>Oct 13, 2026<br/>04:28 PM</small></div><b class="negative">-0.001000 BTC<small>$67.21</small></b><span class="completed">Completed</span></div>
                 <div class="tx-row"><span class="tx-coin ltc">Ł</span><div><strong>Deposit</strong><small>Oct 12, 2026<br/>11:15 AM</small></div><b class="positive">+0.002500 BTC<small>$168.45</small></b><span class="completed">Completed</span></div>
                 <div class="tx-row"><span class="tx-coin doge">Ð</span><div><strong>Referral Bonus</strong><small>Oct 11, 2026<br/>09:32 AM</small></div><b class="positive">+0.000250 BTC<small>$16.82</small></b><span class="completed">Completed</span></div>
@@ -315,19 +332,99 @@
 
             <article class="premium-card">
               <div class="premium-art">₿</div>
-              <h3>Upgrade to Premium</h3>
-              <ul><li>✓ Higher mining power</li><li>✓ Lower fees</li><li>✓ Priority withdrawals</li></ul>
-              <button onclick="navigate('plans')">Upgrade Now</button>
+              <h3>Professional trading account</h3>
+              <ul><li>✓ Flexible leverage</li><li>✓ Broker-configured pricing</li><li>✓ Priority support</li></ul>
+              <button onclick="navigate('plans')">View account options</button>
             </article>
           </section>
 
           <section class="bottom-hero">
-            <div class="hero-copy"><strong>HashNova</strong><h2>Mine Today. Build Tomorrow.</h2><p>Secure &nbsp; • &nbsp; Sustainable &nbsp; • &nbsp; Profitable</p></div>
-            <button onclick="navigate('plans')">Start Mining Now →</button>
+            <div class="hero-copy"><strong>Edge Nexus</strong><h2>Trade Today. Scale Tomorrow.</h2><p>Secure &nbsp; • &nbsp; Transparent &nbsp; • &nbsp; Broker-ready</p></div>
+            <button onclick="navigate('plans')">Start Accounts Now →</button>
           </section>
         </div>
 
         <!-- ===== PLANS ===== -->
+        <div id="page-trading" class="page">
+          <div class="page-heading-row">
+            <div>
+              <h2>Trading Terminal</h2>
+              <p class="text-secondary">Broker-ready FX workspace with server-side risk controls.</p>
+            </div>
+            <div class="trading-live-badge"><span></span> Edge Nexus · MT5-compatible markets</div>
+          </div>
+          <section class="trading-layout">
+            <div class="trading-main-column">
+              <article class="card trading-chart-card">
+                <div class="card-header"><div><div class="card-title">Market Watch</div><div class="text-secondary" id="trading-selected-symbol">EURUSD</div></div><div style="display:flex;gap:8px;flex-wrap:wrap"><select class="form-select" id="instrument-class-filter" style="max-width:150px"><option value="">All instruments</option><option value="forex">Forex</option><option value="metals">Metals</option><option value="energy">Energies</option><option value="commodity">Commodities</option><option value="index">Indices</option><option value="crypto">Crypto</option><option value="stock">Stocks</option><option value="etf">ETFs</option><option value="bond">Bonds</option></select><select class="form-select trading-account-select" id="trading-account-select"></select></div></div>
+                <div class="trading-toolbar">
+                  <div class="watchlist-strip" id="watchlist-strip"></div>
+                  <div class="chart-controls" role="group" aria-label="Chart timeframe">
+                    <button class="chart-time active" data-timeframe="1H" onclick="setChartTimeframe('1H')">1H</button>
+                    <button class="chart-time" data-timeframe="4H" onclick="setChartTimeframe('4H')">4H</button>
+                    <button class="chart-time" data-timeframe="1D" onclick="setChartTimeframe('1D')">1D</button>
+                    <button class="chart-time" data-timeframe="1W" onclick="setChartTimeframe('1W')">1W</button>
+                  </div>
+                </div>
+                <div class="chart-meta-row"><div><strong id="chart-symbol-label">EURUSD</strong><span id="chart-price-label">—</span></div><span class="chart-status"><i></i> Broker feed boundary</span></div>
+                <div class="quote-chart" id="quote-chart" aria-label="Price chart"></div>
+                <div class="chart-scale"><span id="chart-high">High —</span><span id="chart-low">Low —</span><span id="chart-spread">Spread —</span></div>
+              </article>
+              <article class="card">
+                <div class="card-header"><div class="card-title">Open Positions</div><button class="btn btn-outline btn-sm" onclick="loadTradingData()">Refresh</button></div>
+                <div class="table-wrap"><table class="data-table"><thead><tr><th>Symbol</th><th>Side</th><th>Size</th><th>Entry</th><th>Mark</th><th>P&amp;L</th><th></th></tr></thead><tbody id="positions-body"><tr><td colspan="7" class="empty-state">Select Trading Terminal to load positions.</td></tr></tbody></table></div>
+              </article>
+            </div>
+            <aside class="trading-side-column">
+              <article class="card order-ticket">
+                <div class="card-title mb-16">New Market Order</div>
+                <div class="order-symbol-row"><select class="form-select" id="order-symbol"></select><input class="form-input" id="order-quantity" type="number" min="0.01" step="0.01" value="0.10" aria-label="Lot size"></div>
+                <div class="risk-preview"><div><span>Estimated margin</span><strong id="order-margin">$0.00</strong></div><div><span>Leverage</span><strong id="order-leverage">1:100</strong></div></div>
+                <div class="order-buttons"><button class="btn btn-buy" onclick="placeTrade('buy')">Buy <span id="buy-price">—</span></button><button class="btn btn-sell" onclick="placeTrade('sell')">Sell <span id="sell-price">—</span></button></div>
+                <p class="form-hint">Execution is currently simulated from the broker-neutral adapter boundary. Exact spreads, commissions and swaps are populated from the authorized MT5 account profile.</p>
+              </article>
+              <article class="card demo-funds-card">
+                <div class="card-title mb-16">Demo Account</div>
+                <div class="demo-funds-amount">$10,000</div>
+                <p class="form-hint">Virtual trading funds only. They never enter the real wallet or payment ledger.</p>
+                <button class="btn btn-outline" style="width:100%" onclick="reloadDemoFunds()">Reload Demo Funds</button>
+              </article>
+              <article class="card real-funding-card">
+                <div class="card-title mb-8">Real Account Funding</div>
+                <p class="form-hint">Move only settled wallet funds into the selected real trading account.</p>
+                <button class="btn btn-gold" style="width:100%" onclick="openRealFunding()">Fund Real Account</button>
+              </article>
+              <article class="card account-health-card">
+                <div class="card-title mb-16">Account Health</div>
+                <div class="health-row"><span>Balance</span><strong id="trade-balance">$0.00</strong></div>
+                <div class="health-row"><span>Equity</span><strong id="trade-equity">$0.00</strong></div>
+                <div class="health-row"><span>Margin used</span><strong id="trade-margin">$0.00</strong></div>
+                <div class="health-row"><span>Free margin</span><strong class="text-green" id="trade-free-margin">$0.00</strong></div><div class="health-row"><span>Margin level</span><strong id="trade-margin-level">—</strong></div><div class="health-row"><span>Risk state</span><strong id="trade-risk-state">Normal</strong></div>
+              </article>
+            </aside>
+          </section>
+        </div>
+        <div id="page-admin" class="page">
+          <div class="page-heading-row">
+            <div><h2>Broker Control Center</h2><p class="text-secondary">Operations, client health, withdrawals, exposure and audit monitoring.</p></div>
+            <div class="trading-live-badge"><span></span> Risk engine active</div>
+          </div>
+          <div class="grid grid-4 admin-kpis">
+            <div class="stat-card"><div class="stat-label">Clients</div><div class="stat-value" id="admin-clients">—</div></div>
+            <div class="stat-card"><div class="stat-label">Trading Equity</div><div class="stat-value text-green" id="admin-equity">—</div></div>
+            <div class="stat-card gold"><div class="stat-label">Pending Withdrawals</div><div class="stat-value text-gold" id="admin-withdrawals">—</div></div>
+            <div class="stat-card"><div class="stat-label">24h Notional</div><div class="stat-value" id="admin-volume">—</div></div>
+          </div>
+          <div class="grid grid-2 mb-24">
+            <article class="card"><div class="card-header"><div class="card-title">Risk Monitor</div><button class="btn btn-outline btn-sm" onclick="loadAdminData()">Refresh</button></div><div id="admin-risk-list" class="admin-risk-list"></div></article>
+            <article class="card"><div class="card-header"><div class="card-title">Currency Exposure</div></div><div class="table-wrap"><table class="data-table"><thead><tr><th>Symbol</th><th>Side</th><th>Positions</th><th>Lots</th><th>Unrealized</th></tr></thead><tbody id="admin-exposure-body"></tbody></table></div></article>
+          </div>
+          <article class="card mb-24"><div class="card-header"><div><div class="card-title">Withdrawal Queue</div><div class="text-secondary">Manual review boundary — payment execution remains provider-controlled.</div></div></div><div class="table-wrap"><table class="data-table"><thead><tr><th>Client</th><th>Amount</th><th>KYC</th><th>Status</th><th>Created</th><th>Action</th></tr></thead><tbody id="admin-withdrawal-body"></tbody></table></div></article>
+          <article class="card mb-24"><div class="card-header"><div><div class="card-title">MT5 Instrument &amp; Pricing Parity</div><div class="text-secondary">Broker/account-specific spreads, commissions, swaps and trading specifications.</div></div><span class="badge badge-green" id="mt5-parity-status">Catalog ready</span></div><div class="grid grid-4" style="margin-top:16px"><div class="stat-card"><div class="stat-label">Catalog instruments</div><div class="stat-value" id="mt5-instrument-count">—</div></div><div class="stat-card"><div class="stat-label">Forex</div><div class="stat-value" id="mt5-forex-count">—</div></div><div class="stat-card"><div class="stat-label">Other asset classes</div><div class="stat-value" id="mt5-other-count">—</div></div><div class="stat-card"><div class="stat-label">Pricing source</div><div class="stat-value" style="font-size:16px">MT5 Adapter</div></div></div></article>
+          <article class="card mb-24"><div class="card-header"><div><div class="card-title">Broker Connectivity &amp; Reconciliation</div><div class="text-secondary">Server-side connection health and account synchronization boundary.</div></div><div class="flex" style="gap:8px"><button class="btn btn-outline btn-sm" onclick="runAdminReconciliation()">Run Reconciliation</button><button class="btn btn-outline btn-sm" onclick="loadAdminData()">Refresh</button></div></div><div class="grid grid-3" style="margin-top:16px"><div class="stat-card"><div class="stat-label">MT5 connection</div><div class="stat-value" id="mt5-connection-status" style="font-size:16px">Disconnected</div></div><div class="stat-card"><div class="stat-label">Last heartbeat</div><div class="stat-value" id="mt5-heartbeat" style="font-size:16px">—</div></div><div class="stat-card"><div class="stat-label">Open reconciliation exceptions</div><div class="stat-value text-gold" id="recon-exceptions">—</div></div></div><div class="table-wrap" style="margin-top:16px"><table class="data-table"><thead><tr><th>Connection</th><th>Provider</th><th>Environment</th><th>Status</th><th>Last Sync</th></tr></thead><tbody id="admin-connectivity-body"></tbody></table></div></article>
+          <article class="card mb-24"><div class="card-header"><div class="card-title">Trading Accounts</div></div><div class="table-wrap"><table class="data-table"><thead><tr><th>Account</th><th>Client</th><th>Equity</th><th>Margin</th><th>Level</th><th>Risk</th></tr></thead><tbody id="admin-accounts-body"></tbody></table></div></article>
+          <article class="card"><div class="card-header"><div class="card-title">Recent Audit Events</div></div><div class="table-wrap"><table class="data-table"><thead><tr><th>Time</th><th>User</th><th>Event</th><th>Details</th></tr></thead><tbody id="admin-audit-body"></tbody></table></div></article>
+        </div>
         <div id="page-plans" class="page">
           <div class="demo-notice">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
@@ -335,8 +432,8 @@
           </div>
           <div class="flex-between mb-24" style="flex-wrap:wrap;gap:12px">
             <div>
-              <h2 style="font-size:22px;margin-bottom:4px">Cloud Mining Contracts</h2>
-              <p class="text-secondary" style="font-size:14px">SHA-256 hashrate packages with fixed duration. Activate instantly.</p>
+              <h2 style="font-size:22px;margin-bottom:4px">Trading Account Types</h2>
+              <p class="text-secondary" style="font-size:14px">Flexible account configurations for the Edge Nexus trading environment.</p>
             </div>
           </div>
           <div class="grid grid-4" id="plans-grid">
@@ -352,10 +449,10 @@
           </div>
           <div class="flex-between mb-24">
             <div>
-              <h2 style="font-size:22px;margin-bottom:4px">My Mining Contracts</h2>
-              <p class="text-secondary" style="font-size:14px">Active and completed cloud hashrate contracts</p>
+              <h2 style="font-size:22px;margin-bottom:4px">My Accounts Contracts</h2>
+              <p class="text-secondary" style="font-size:14px">Open and closed trading activity</p>
             </div>
-            <button class="btn btn-primary" onclick="navigate('plans')">+ New Contract</button>
+            <button class="btn btn-primary" onclick="navigate('plans')">+ New Trading Account</button>
           </div>
           <div class="grid" style="gap:16px" id="miners-list">
             <!-- Rendered by JS -->
@@ -366,7 +463,7 @@
         <div id="page-wallet" class="page">
           <div class="demo-notice">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
-            <span>All deposits, withdrawals and balances are <strong>local demo state</strong>. No real blockchain transactions occur.</span>
+            <span>Wallet balances are server-authoritative. Deposits remain pending until an authorized payment provider confirms settlement; production rails are not connected in this build.</span>
           </div>
           <div class="grid grid-4 mb-24">
             <div class="stat-card">
@@ -426,7 +523,7 @@
               <div class="stat-value" id="ref-total">14</div>
             </div>
             <div class="stat-card">
-              <div class="stat-label">Active</div>
+              <div class="stat-label">Account status</div>
               <div class="stat-value text-green" id="ref-active">9</div>
             </div>
             <div class="stat-card gold">
@@ -462,6 +559,34 @@
           </div>
         </div>
 
+        <!-- ===== ACTIVITY ===== -->
+        <div id="page-activity" class="page">
+          <div class="page-heading-row">
+            <div><h2>Account Activity</h2><p class="text-secondary">Deposits, withdrawals, trading activity and account events.</p></div>
+            <button class="btn btn-outline" onclick="loadActivity()">Refresh</button>
+          </div>
+          <div class="grid grid-2 mb-24">
+            <article class="card"><div class="card-title mb-8">Recent funding</div><div class="text-secondary" style="font-size:13px">Wallet movements are shown from the server ledger. A payment is not credited until the provider webhook confirms settlement.</div></article>
+            <article class="card"><div class="card-title mb-8">Trading history</div><div class="text-secondary" style="font-size:13px">Orders and executions remain separate from wallet ledger entries for auditability.</div></article>
+          </div>
+          <div class="card mb-24"><div class="card-header"><div class="card-title">Wallet Transactions</div></div><div class="table-wrap"><table class="data-table"><thead><tr><th>Type</th><th>Amount</th><th>Status</th><th>Reference</th><th>Date</th></tr></thead><tbody id="activity-wallet-body"></tbody></table></div></div>
+          <div class="card"><div class="card-header"><div class="card-title">Trading Orders</div></div><div class="table-wrap"><table class="data-table"><thead><tr><th>Symbol</th><th>Side</th><th>Quantity</th><th>Status</th><th>Created</th></tr></thead><tbody id="activity-orders-body"></tbody></table></div></div>
+        </div>
+
+        <!-- ===== VERIFICATION ===== -->
+        <div id="page-verification" class="page">
+          <div class="page-heading-row"><div><h2>Identity Verification</h2><p class="text-secondary">Complete verification before production withdrawals and other regulated features are enabled.</p></div></div>
+          <div class="card verification-card">
+            <div class="verification-status" id="kyc-status-card"><span class="status-dot"></span><div><strong id="kyc-status-title">Not started</strong><p id="kyc-status-copy">Your verification profile has not been submitted.</p></div></div>
+            <div class="grid grid-2 mt-24">
+              <div class="form-group"><label class="form-label">Country of residence</label><select class="form-select" id="kyc-country"><option value="NG">Nigeria</option><option value="GH">Ghana</option><option value="KE">Kenya</option><option value="ZA">South Africa</option><option value="GB">United Kingdom</option><option value="US">United States</option></select></div>
+              <div class="form-group"><label class="form-label">Identity document</label><select class="form-select" id="kyc-document"><option value="passport">Passport</option><option value="national_id">National ID</option><option value="drivers_license">Driver's licence</option></select></div>
+            </div>
+            <div class="demo-notice mt-16"><span>Document upload/provider verification is intentionally kept behind the KYC provider boundary. This screen submits the verification request only.</span></div>
+            <button class="btn btn-primary mt-16" id="kyc-submit" onclick="submitKyc()">Start verification</button>
+          </div>
+        </div>
+
         <!-- ===== PROFILE ===== -->
         <div id="page-profile" class="page">
           <div class="demo-notice">
@@ -477,11 +602,11 @@
               </div>
               <div class="form-group">
                 <label class="form-label">Email</label>
-                <input class="form-input" value="alex.demo@hashnova.io" />
+                <input class="form-input" value="demo@edgenexus.local" />
               </div>
               <div class="form-group">
                 <label class="form-label">Tier</label>
-                <input class="form-input" value="Gold Miner" disabled />
+                <input class="form-input" value="Client Account" disabled />
               </div>
               <div class="form-group">
                 <label class="form-label">Member Since</label>
@@ -522,20 +647,20 @@
             <div class="card-title mb-16">Frequently Asked Questions</div>
             <div style="display:flex;flex-direction:column;gap:12px">
               <details style="background:var(--bg-elevated);padding:14px 16px;border-radius:8px;border:1px solid var(--border)">
-                <summary style="cursor:pointer;font-weight:600">Is this a real mining platform?</summary>
-                <p class="text-secondary mt-8" style="font-size:14px">No. HashNova is a UI/UX prototype. All balances, contracts, hashrates and transactions are simulated in the browser. No real cryptocurrency is mined or transferred.</p>
+                <summary style="cursor:pointer;font-weight:600">Is this a real trading platform?</summary>
+                <p class="text-secondary mt-8" style="font-size:14px">No. Edge Nexus is now structured as a broker-ready trading platform. Market execution and client-money movement remain disabled until authorized MT5/LP/payment integrations are connected.</p>
               </details>
               <details style="background:var(--bg-elevated);padding:14px 16px;border-radius:8px;border:1px solid var(--border)">
-                <summary style="cursor:pointer;font-weight:600">How do cloud mining contracts work (in production)?</summary>
+                <summary style="cursor:pointer;font-weight:600">How does Edge Nexus connect to a broker?</summary>
                 <p class="text-secondary mt-8" style="font-size:14px">In a real product, users purchase a fixed amount of hashrate for a defined period. The provider operates physical miners and distributes proportional rewards. This demo only mimics the interface and flow.</p>
               </details>
               <details style="background:var(--bg-elevated);padding:14px 16px;border-radius:8px;border:1px solid var(--border)">
                 <summary style="cursor:pointer;font-weight:600">Can I withdraw real money?</summary>
-                <p class="text-secondary mt-8" style="font-size:14px">No. Withdraw and deposit buttons update local demo state only. No blockchain or payment rails are connected.</p>
+                <p class="text-secondary mt-8" style="font-size:14px">No. Withdraw and deposit buttons update server-backed account state only. No blockchain or payment rails are connected.</p>
               </details>
               <details style="background:var(--bg-elevated);padding:14px 16px;border-radius:8px;border:1px solid var(--border)">
-                <summary style="cursor:pointer;font-weight:600">What algorithms are supported?</summary>
-                <p class="text-secondary mt-8" style="font-size:14px">This prototype focuses on SHA-256 (Bitcoin-style) cloud contracts. A production version could add more algorithms.</p>
+                <summary style="cursor:pointer;font-weight:600">What markets are supported?</summary>
+                <p class="text-secondary mt-8" style="font-size:14px">The catalog is structured for Forex, indices, stocks, ETFs, bonds, energies, metals, commodities and crypto where the connected broker supplies the instrument.</p>
               </details>
             </div>
           </div>
@@ -556,7 +681,8 @@
     </div>
     <nav class="mobile-bottom-nav">
       <button class="active" onclick="navigate('dashboard')"><span>⌂</span><small>Home</small></button>
-      <button onclick="navigate('miners')"><span>♧</span><small>Mining</small></button>
+      <button onclick="navigate('miners')"><span>♧</span><small>Accounts</small></button>
+      <button onclick="navigate('trading')"><span>↗</span><small>Trade</small></button>
       <button onclick="navigate('wallet')"><span>▣</span><small>Wallet</small></button>
       <button onclick="navigate('profile')"><span>♙</span><small>Profile</small></button>
     </nav>
@@ -667,9 +793,22 @@
     </div>
   </div>
 
+  <div class="modal-overlay" id="modal-real-funding">
+    <div class="modal">
+      <div class="modal-header"><div class="modal-title">Fund Real Trading Account</div><button class="modal-close" onclick="closeModal('modal-real-funding')">×</button></div>
+      <div class="modal-body">
+        <div class="demo-notice"><span>Only settled wallet funds can be transferred. Demo funds cannot be converted into real money.</span></div>
+        <div class="form-group"><label class="form-label">Amount (USD)</label><input class="form-input" id="real-funding-amount" type="number" min="1" step="0.01" placeholder="100.00"></div>
+        <p class="form-hint" id="real-funding-account-label">Selected account: —</p>
+      </div>
+      <div class="modal-footer"><button class="btn btn-outline" onclick="closeModal('modal-real-funding')">Cancel</button><button class="btn btn-gold" onclick="fundSelectedRealAccount()">Transfer Wallet Funds</button></div>
+    </div>
+  </div>
+
   <!-- Toasts -->
   <div class="toast-container" id="toast-container"></div>
 
+  <script src="js/api.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>
